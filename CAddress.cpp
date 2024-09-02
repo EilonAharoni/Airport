@@ -30,7 +30,7 @@ string CAddress::getStreet() const{
 }
 
 int CAddress::getHouseNumber() {
-    return 0;
+    return this->houseNumber;
 }
 
 void CAddress::print() {

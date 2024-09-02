@@ -14,7 +14,6 @@ CCrewMember::CCrewMember(const string& name,const CAddress& newAddress, int airT
 }
 CCrewMember::CCrewMember(CCrewMember &other) {
     this->name = other.name;
-    delete this->address;
     this->address = new CAddress(*other.address);
     this->airTime = other.airTime;
 }
