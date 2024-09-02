@@ -17,7 +17,7 @@ private:
 
 public:
     CCrewMember(const string& name,const CAddress& address,int airTime = 0);
-
+    CCrewMember(CCrewMember& other);
     bool UpdateMinutes(int minuets);
     int getAirTime() const;
 

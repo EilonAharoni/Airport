@@ -11,8 +11,14 @@ CCrewMember::CCrewMember(const string& name,const CAddress& newAddress, int airT
     this->address = new CAddress(newAddress);
     this->airTime = airTime;
 
-
 }
+CCrewMember::CCrewMember(CCrewMember &other) {
+    this->name = other.name;
+    delete this->address;
+    this->address = new CAddress(*other.address);
+    this->airTime = other.airTime;
+}
+
 
 bool CCrewMember::UpdateMinutes(int minuets) {
     if (minuets + this->airTime >= 0)
@@ -61,5 +67,6 @@ CCrewMember::~CCrewMember() {
     delete address;
     address = nullptr;
 }
+
 
 
