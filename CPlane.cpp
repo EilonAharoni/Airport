@@ -2,16 +2,16 @@
 // Created by אילון אהרוני on 01/09/2024.
 //
 #include <iostream>
+#include <utility>
 #include "CPlane.h"
 
 
 
 using namespace std;
 
-CPlane::CPlane(const int id,const string& model,const int num) {
-    this->planeId = id;
-    this->planeModel = model;
-    this->seats = num;
+CPlane::CPlane(const int id,string  model,const int num) : planeId(id),planeModel(std::move(model)),seats(num)
+{
+
 }
 
 int CPlane::getId() const {

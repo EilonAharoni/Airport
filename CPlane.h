@@ -11,12 +11,12 @@ using namespace std;
 
 class CPlane {
 private:
-    int planeId;
+    const int planeId;
     string planeModel;
-    int seats;
+    const int seats;
 
 public:
-    CPlane(const int id,const string& model,const int num);
+    CPlane(const int id,string  model,const int num);
 
     int getId() const;
     string getModel() const;

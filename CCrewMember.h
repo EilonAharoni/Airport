@@ -25,11 +25,11 @@ public:
     string getName() const;
 
     void setAddress(CAddress& newAddress);
-    CAddress getAddress() ;
+    CAddress getAddress() const;
 
-    void print();
+    void print() const;
 
-    bool IsEqual(CCrewMember& other);
+    bool IsEqual(CCrewMember& other) const;
 
     ~CCrewMember();
 };

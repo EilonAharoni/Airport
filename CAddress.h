@@ -20,8 +20,8 @@ public:
     void updateAddress( const string& newCity,const string& newStreet,  int houseNum);
     string getCity() const;
     string getStreet() const;
-    int getHouseNumber();
-    void print();
+    int getHouseNumber() const;
+    void print() const;
 
 
     };

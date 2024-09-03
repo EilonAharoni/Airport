@@ -13,8 +13,11 @@ CAddress::CAddress(const CAddress &other) {
 }
 
 void CAddress::updateAddress(const string& newCity,const string& newStreet,int houseNum) {
-    this->city = newCity;
-    this->street = newStreet;
+
+        this->city = newCity;
+
+
+        this->street = newStreet;
 
     if (houseNum > 0)
         this->houseNumber = houseNum;
@@ -29,11 +32,11 @@ string CAddress::getStreet() const{
     return this->street;
 }
 
-int CAddress::getHouseNumber() {
+int CAddress::getHouseNumber() const {
     return this->houseNumber;
 }
 
-void CAddress::print() {
+void CAddress::print() const{
     cout << this->street << ", " << this->houseNumber << ", " << this->city << endl;
 
 }

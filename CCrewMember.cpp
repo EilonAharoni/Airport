@@ -9,13 +9,13 @@
 CCrewMember::CCrewMember(const string& name,const CAddress& newAddress, int airTime) {
     this->name = name;
     this->address = new CAddress(newAddress);
-    this->airTime = airTime;
+    UpdateMinutes(airTime);
 
 }
 CCrewMember::CCrewMember(CCrewMember &other) {
     this->name = other.name;
-    this->address = new CAddress(*other.address);
-    this->airTime = other.airTime;
+    this->address = new CAddress(other.getAddress());
+    UpdateMinutes(other.airTime);
 }
 
 
@@ -47,18 +47,18 @@ void CCrewMember::setAddress(CAddress &newAddress) {
 
 }
 
-CAddress CCrewMember::getAddress() {
+CAddress CCrewMember::getAddress() const{
     return *this->address;
 }
 
-void CCrewMember::print() {
+void CCrewMember::print() const{
     cout << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime << " , ";
     this->address->print();
 
 
 }
 
-bool CCrewMember::IsEqual(CCrewMember &other) {
+bool CCrewMember::IsEqual(CCrewMember &other) const{
     return this->name == other.name;
 }
 
