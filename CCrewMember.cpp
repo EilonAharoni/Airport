@@ -2,19 +2,20 @@
 // Created by אילון אהרוני on 01/09/2024.
 //
 #include <iostream>
+#include <utility>
 #include "CCrewMember.h"
 
 
 
-CCrewMember::CCrewMember(const string& name,const CAddress& newAddress, int airTime) {
-    this->name = name;
-    this->address = new CAddress(newAddress);
+CCrewMember::CCrewMember(string  name,const CAddress& newAddress, int airTime) : name(std::move(name)), address(newAddress){
+//    this->name = name;
+//    this->address = new CAddress(newAddress);
     UpdateMinutes(airTime);
 
 }
-CCrewMember::CCrewMember(CCrewMember &other) {
-    this->name = other.name;
-    this->address = new CAddress(other.getAddress());
+CCrewMember::CCrewMember(CCrewMember &other) : CCrewMember(other.name,other.address){
+//    this->name = other.name;
+//    this->address = new CAddress(other.getAddress());
     UpdateMinutes(other.airTime);
 }
 
@@ -43,17 +44,17 @@ string CCrewMember::getName() const{
 }
 
 void CCrewMember::setAddress(CAddress &newAddress) {
-    this->address->updateAddress(newAddress.getCity(),newAddress.getStreet(), newAddress.getHouseNumber());
+    this->address.updateAddress(newAddress.getCity(),newAddress.getStreet(), newAddress.getHouseNumber());
 
 }
 
 CAddress CCrewMember::getAddress() const{
-    return *this->address;
+    return this->address;
 }
 
 void CCrewMember::print() const{
     cout << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime << " , ";
-    this->address->print();
+    this->address.print();
 
 
 }
@@ -63,8 +64,7 @@ bool CCrewMember::IsEqual(CCrewMember &other) const{
 }
 
 CCrewMember::~CCrewMember() {
-    delete address;
-    address = nullptr;
+    cout << "in d'tor Crew Member" << endl;
 }
 
 
