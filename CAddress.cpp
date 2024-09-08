@@ -29,15 +29,15 @@ void CAddress::updateAddress(const string& newCity,const string& newStreet,int h
 
 }
 
-string CAddress::getCity() const{
+const string CAddress::getCity() const{
     return this->city;
 }
 
-string CAddress::getStreet() const{
+const string CAddress::getStreet() const{
     return this->street;
 }
 
-int CAddress::getHouseNumber() const {
+const int CAddress::getHouseNumber() const {
     return this->houseNumber;
 }
 
