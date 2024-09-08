@@ -8,14 +8,12 @@
 
 
 CCrewMember::CCrewMember(string  name,const CAddress& newAddress, int airTime) : name(std::move(name)), address(newAddress){
-//    this->name = name;
-//    this->address = new CAddress(newAddress);
+
     UpdateMinutes(airTime);
 
 }
 CCrewMember::CCrewMember(CCrewMember &other) : CCrewMember(other.name,other.address){
-//    this->name = other.name;
-//    this->address = new CAddress(other.getAddress());
+
     UpdateMinutes(other.airTime);
 }
 
@@ -30,7 +28,7 @@ bool CCrewMember::UpdateMinutes(int minuets) {
 
 }
 
-int CCrewMember::getAirTime() const {
+const int CCrewMember::getAirTime() const {
     return this->airTime;
 }
 
@@ -39,7 +37,7 @@ void CCrewMember::setName(string &newName) {
 
 }
 
-string CCrewMember::getName() const{
+const string CCrewMember::getName() const{
     return this->name;
 }
 

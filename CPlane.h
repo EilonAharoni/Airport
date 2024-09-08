@@ -18,9 +18,9 @@ private:
 public:
     CPlane(const int id,string  model,const int num);
 
-    int getId() const;
-    string getModel() const;
-    int getNumOfSeats() const;
+    const int getId() const;
+    const string getModel() const;
+    const int getNumOfSeats() const;
 
     bool isEqual(CPlane& other) const;
 

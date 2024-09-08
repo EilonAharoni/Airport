@@ -15,7 +15,7 @@ private:
     int houseNumber;
 
 public:
-    CAddress(int houseNum, const string& street, const string& city = "Tel Aviv");//constructor
+    CAddress(const int houseNum, const string& street, const string& city = "Tel Aviv");//constructor
     CAddress(const CAddress& other);
     void updateAddress( const string& newCity,const string& newStreet,  int houseNum);
     string getCity() const;

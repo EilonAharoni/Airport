@@ -14,15 +14,15 @@ CPlane::CPlane(const int id,string  model,const int num) : planeId(id),planeMode
 
 }
 
-int CPlane::getId() const {
+const int CPlane::getId() const {
     return this->planeId;
 }
 
-string CPlane::getModel() const {
+const string CPlane::getModel() const {
     return this->planeModel;
 }
 
-int CPlane::getNumOfSeats() const {
+const int CPlane::getNumOfSeats() const {
     return this->seats;
 }
 

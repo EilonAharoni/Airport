@@ -4,7 +4,7 @@
 #include <iostream>
 #include "CAddress.h"
 
-CAddress::CAddress(int houseNum, const string& street, const string& city) {
+CAddress::CAddress(const int houseNum, const string& street, const string& city) {
     updateAddress(city, street,houseNum);
 }
 CAddress::CAddress(const CAddress &other) {
@@ -14,10 +14,15 @@ CAddress::CAddress(const CAddress &other) {
 
 void CAddress::updateAddress(const string& newCity,const string& newStreet,int houseNum) {
 
-        this->city = newCity;
+    if (newStreet.empty() || newCity.empty())
+    {
+        cout << "Must not be empty" << endl;
+        return;
+    }
+    this->city = newCity;
 
 
-        this->street = newStreet;
+    this->street = newStreet;
 
     if (houseNum > 0)
         this->houseNumber = houseNum;
