@@ -16,7 +16,7 @@ private:
     const int seats;
 
 public:
-    CPlane(const int id,string  model,const int num);
+    CPlane(const int id,const int num,string  model);
 
     const int getId() const;
     const string getModel() const;

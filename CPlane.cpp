@@ -9,7 +9,7 @@
 
 using namespace std;
 
-CPlane::CPlane(const int id,string  model,const int num) : planeId(id),planeModel(std::move(model)),seats(num)
+CPlane::CPlane(const int id,const int num ,string  model) : planeId(id),planeModel(std::move(model)),seats(num)
 {
 
 }
