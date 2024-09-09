@@ -13,7 +13,7 @@ CFlightInfo::CFlightInfo(const string destination, int flight_number, int flight
           destination(destination)
 {
     setFlightDistance(flight_distance);
-    setFlightDistance(flight_time);
+    setFlightTime(flight_time);// it was also setDistance need to change in Erez code
 }
 
 CFlightInfo::CFlightInfo(const CFlightInfo& other) :

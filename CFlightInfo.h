@@ -9,6 +9,13 @@
 
 
 class CFlightInfo {
+
+private:
+    string destination;
+    int flight_number;
+    int flight_time;
+    int flight_distance;
+
 public:
     CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance);
     CFlightInfo(const CFlightInfo& other); // Copy Constructor
@@ -23,11 +30,7 @@ public:
     bool isEqual(int flight_number);
     void Print() const;
 
-private:
-    string destination;
-    int flight_number;
-    int flight_time;
-    int flight_distance;
+
 };
 
 
