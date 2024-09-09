@@ -9,14 +9,14 @@ using namespace std;
 
 class CFlightCompany {
 public:
-    CFlightCompany(const string name);
-    CFlightCompany(const CFlightCompany& other); // Copy Constructor
-    string GetName() const;
-    void SetName(string name);
-    void Print() const;
+	CFlightCompany(const string name);
+	CFlightCompany(const CFlightCompany& other); // Copy Constructor
+	string GetName() const;
+	void SetName(string name);
+	void Print() const;
 
 private:
-    string company_name;
+	string company_name;
 };
 
 
