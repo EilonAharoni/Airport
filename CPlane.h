@@ -1,6 +1,3 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
 
 #ifndef AIRPORT_CPLANE_H
 #define AIRPORT_CPLANE_H
@@ -9,15 +6,17 @@
 
 using namespace std;
 
-class CPlane {
+class CPlane
+{
 private:
     const int planeId;
     string planeModel;
     const int seats;
 
 public:
-    CPlane(const int id,const int num,string  model);
-
+    CPlane(const int id, const int num, string model);
+    CPlane(const CPlane& other) = default; //copy constructor
+    ~CPlane() = default;                   //destructor    
     const int getId() const;
     const string getModel() const;
     const int getNumOfSeats() const;

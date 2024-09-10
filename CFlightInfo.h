@@ -1,6 +1,3 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
 
 #ifndef AIRPORT_CFLIGHTINFO_H
 #define AIRPORT_CFLIGHTINFO_H
@@ -9,7 +6,8 @@
 class CFlightInfo {
 public:
 	CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance);
-	CFlightInfo(const CFlightInfo& other); // Copy Constructor
+	CFlightInfo(const CFlightInfo& other) = default; // Copy Constructor
+	~CFlightInfo() = default;						 // Destructor
 	const int getFlightNumber() const;
 	void setFlightNumber(const int flight_number);
 	const string getDestination() const;
