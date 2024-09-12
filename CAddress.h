@@ -1,6 +1,3 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
 
 #ifndef AIRPORT_CADDRESS_H
 #define AIRPORT_CADDRESS_H
@@ -8,23 +5,23 @@
 
 using namespace std;
 
-class CAddress {
+class CAddress
+{
 private:
-    string city ;
+    string city;
     string street;
-    int houseNumber;
+    int houseNumber = 0;
 
 public:
-    CAddress(const int houseNum, const string& street, const string& city = "Tel Aviv");//constructor
-    CAddress(const CAddress& other);
-    void updateAddress( const string& newCity,const string& newStreet,  int houseNum);
+    CAddress(const int houseNum, const string& street, const string& city = "Tel Aviv");
+    CAddress(const CAddress& other) = default; //copy constructor
+    ~CAddress() = default;                     //destructor 
+    void updateAddress(const string& newCity, const string& newStreet, int houseNum);
     const string getCity() const;
     const string getStreet() const;
     const int getHouseNumber() const;
-    void print() const;
-
-
-    };
+    void Print() const;
+};
 
 
 #endif //AIRPORT_CADDRESS_H

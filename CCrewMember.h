@@ -1,6 +1,3 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
 
 #ifndef AIRPORT_CCREWMEMBER_H
 #define AIRPORT_CCREWMEMBER_H
@@ -9,19 +6,21 @@
 
 using namespace std;
 
-class CCrewMember {
+class CCrewMember
+{
 private:
     string name;
-    int airTime; // in minutes
+    int airTime = 0; // in minutes
     CAddress address;
 
 public:
-    CCrewMember(string  name,const CAddress& address,int airTime = 0);
-    CCrewMember(CCrewMember& other);
-    bool UpdateMinutes(int minuets);
+    CCrewMember(string name, const CAddress& address, int airTime = 0);
+    CCrewMember(CCrewMember& other) = default; // copy constructor
+    ~CCrewMember() = default;                  // destructor
+    bool UpdateMinutes(int minutes);
     const int getAirTime() const;
 
-    void setName(string& newName);
+    void setName(const string& newName);
     const string getName() const;
 
     void setAddress(CAddress& newAddress);
@@ -30,8 +29,6 @@ public:
     void print() const;
 
     bool IsEqual(CCrewMember& other) const;
-
-    ~CCrewMember();
 };
 
 

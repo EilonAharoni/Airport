@@ -1,6 +1,3 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
 
 using namespace std;
 #include <iostream>
@@ -8,20 +5,12 @@ using namespace std;
 #include "CFlightInfo.h"
 
 CFlightInfo::CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance)
-        : flight_number(flight_number),
+    : flight_number(flight_number),
 
-          destination(destination)
+    destination(destination)
 {
     setFlightDistance(flight_distance);
     setFlightTime(flight_time);// it was also setDistance need to change in Erez code
-}
-
-CFlightInfo::CFlightInfo(const CFlightInfo& other) :
-        flight_number(other.flight_number),
-        destination(other.destination)
-{
-    setFlightDistance(other.flight_distance);
-    setFlightTime(other.flight_time);
 }
 
 // setters
@@ -88,9 +77,9 @@ bool CFlightInfo::isEqual(int flight_number)
 
 void CFlightInfo::Print() const
 {
-    cout << "Flight info: " << endl;
+    cout << "Flight info " << endl;
     cout << "Flight number: " << this->getFlightNumber() << endl;
     cout << "Destination: " << this->getDestination() << endl;
     cout << "Flight time: " << this->getFlightTime() << endl;
-    cout << "Flight distance: " << this->getFlightDistance()<< endl;
+    cout << "Flight distance: " << this->getFlightDistance() << endl;
 }

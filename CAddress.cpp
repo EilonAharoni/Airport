@@ -1,18 +1,12 @@
-//
-// Created by אילון אהרוני on 01/09/2024.
-//
+
 #include <iostream>
 #include "CAddress.h"
 
 CAddress::CAddress(const int houseNum, const string& street, const string& city) {
-    updateAddress(city, street,houseNum);
-}
-CAddress::CAddress(const CAddress &other) {
-    updateAddress(other.city,other.street,other.houseNumber);
-
+    updateAddress(city, street, houseNum);
 }
 
-void CAddress::updateAddress(const string& newCity,const string& newStreet,int houseNum) {
+void CAddress::updateAddress(const string& newCity, const string& newStreet, int houseNum) {
 
     if (newStreet.empty() || newCity.empty())
     {
@@ -26,14 +20,13 @@ void CAddress::updateAddress(const string& newCity,const string& newStreet,int h
 
     if (houseNum > 0)
         this->houseNumber = houseNum;
-
 }
 
-const string CAddress::getCity() const{
+const string CAddress::getCity() const {
     return this->city;
 }
 
-const string CAddress::getStreet() const{
+const string CAddress::getStreet() const {
     return this->street;
 }
 
@@ -41,7 +34,7 @@ const int CAddress::getHouseNumber() const {
     return this->houseNumber;
 }
 
-void CAddress::print() const{
+void CAddress::Print() const {
     cout << this->street << ", " << this->houseNumber << ", " << this->city << endl;
 
 }
