@@ -78,5 +78,9 @@ ostream &operator<<(ostream &os, const CCrewMember &crewMember) {
     os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << " , ";
 }
 
+const int CCrewMember::getId() const {
+    id;
+}
+
 
 

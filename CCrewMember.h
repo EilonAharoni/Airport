@@ -25,7 +25,7 @@ public:
     const CCrewMember& operator+=(int minutes);
 
     const int getAirTime() const;
-
+    const int getId() const;
     void setName(const string& newName);
     const string getName() const;
 
