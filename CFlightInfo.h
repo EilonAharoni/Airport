@@ -2,7 +2,7 @@
 #ifndef AIRPORT_CFLIGHTINFO_H
 #define AIRPORT_CFLIGHTINFO_H
 #include <string>
-
+using namespace std;
 class CFlightInfo {
 public:
 	CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance);
