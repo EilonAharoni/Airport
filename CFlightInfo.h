@@ -2,13 +2,16 @@
 #ifndef AIRPORT_CFLIGHTINFO_H
 #define AIRPORT_CFLIGHTINFO_H
 #include <string>
+using namespace std;
 
 class CFlightInfo {
+	friend ostream& operator << (ostream& out, const CFlightInfo& r); 
 public:
+	CFlightInfo() = delete;
 	CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance);
 	CFlightInfo(const CFlightInfo& other) = default; // Copy Constructor
 	~CFlightInfo() = default;						 // Destructor
-	const int getFlightNumber() const;
+	const int GetFNum() const;
 	void setFlightNumber(const int flight_number);
 	const string getDestination() const;
 	void SetDest(const string new_destination);
@@ -17,12 +20,16 @@ public:
 	const int getFlightDistance() const;
 	void setFlightDistance(const int new_flight_distance);
 	bool isEqual(int flight_number);
-	void Print() const;
+	const CFlightInfo& operator = (const CFlightInfo& r);
+	bool operator == (const CFlightInfo& r) const;
+	bool operator != (const CFlightInfo& r) const;
+	operator int() const;
+	//void Print() const;
 
 private:
 	string destination;
 	int flight_number;
-	int flight_time;
+	int flight_duration;
 	int flight_distance;
 };
 

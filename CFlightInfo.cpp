@@ -36,7 +36,7 @@ void CFlightInfo::setFlightTime(const int new_flight_time)
         cout << "Flight time must be a positive number" << endl;
         return;
     }
-    this->flight_time = new_flight_time;
+    this->flight_duration = new_flight_time;
 }
 
 void CFlightInfo::setFlightDistance(const int new_flight_distance)
@@ -49,7 +49,7 @@ void CFlightInfo::setFlightDistance(const int new_flight_distance)
     this->flight_distance = new_flight_distance;
 }
 // getters
-const int CFlightInfo::getFlightNumber() const
+const int CFlightInfo::GetFNum() const
 {
     return this->flight_number;
 }
@@ -61,7 +61,7 @@ const string CFlightInfo::getDestination() const
 
 const int CFlightInfo::getFlightTime() const
 {
-    return this->flight_time;
+    return this->flight_duration;
 }
 
 const int CFlightInfo::getFlightDistance() const
@@ -75,11 +75,48 @@ bool CFlightInfo::isEqual(int flight_number)
     return this->flight_number == flight_number;
 }
 
-void CFlightInfo::Print() const
+const CFlightInfo& CFlightInfo::operator=(const CFlightInfo& r)
 {
-    cout << "Flight info " << endl;
-    cout << "Flight number: " << this->getFlightNumber() << endl;
-    cout << "Destination: " << this->getDestination() << endl;
-    cout << "Flight time: " << this->getFlightTime() << endl;
-    cout << "Flight distance: " << this->getFlightDistance() << endl;
+    if (this != &r)
+	{
+		this->flight_number = r.flight_number;
+		this->destination = r.destination;
+		this->flight_duration = r.flight_duration;
+		this->flight_distance = r.flight_distance;
+	}
+	return *this;
+}
+
+bool CFlightInfo::operator==(const CFlightInfo& r) const
+{
+	return this->flight_number == r.flight_number;
+}
+
+bool CFlightInfo::operator!=(const CFlightInfo& r) const
+{
+	return !(*this == r);
+}
+
+CFlightInfo::operator int() const
+{
+    return this->flight_duration;
+}
+
+//void CFlightInfo::Print() const
+//{
+//    cout << "Flight info " << endl;
+//    cout << "Flight number: " << this->getFlightNumber() << endl;
+//    cout << "Destination: " << this->getDestination() << endl;
+//    cout << "Flight time: " << this->getFlightTime() << endl;
+//    cout << "Flight distance: " << this->getFlightDistance() << endl;
+//}
+
+ostream& operator<<(ostream& out, const CFlightInfo& r)
+{
+    out << "Flight info " << endl;
+    out << "Flight number: " << r.flight_number  << endl;
+    out << "Destination: " << r.destination << endl;
+    out << "Flight duration: " << r.flight_duration << endl;
+    out << "Flight distance: " << r.flight_distance << endl;
+    return out; 
 }
