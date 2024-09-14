@@ -9,20 +9,26 @@ using namespace std;
 class CPlane
 {
 private:
-    const int planeId;
+    static int SERIAL_ID; //start from 100
+    int planeId;
     string planeModel;
-    const int seats;
+    int seats;
+
 
 public:
-    CPlane(const int id, const int num, string model);
+    CPlane(const int num, string model);
     CPlane(const CPlane& other) = default; //copy constructor
-    ~CPlane() = default;                   //destructor    
+    ~CPlane() = default;                   //destructor
+    CPlane() = delete;
     const int getId() const;
     const string getModel() const;
     const int getNumOfSeats() const;
-
+    const CPlane& operator++();
+    CPlane operator++(int);
     bool isEqual(CPlane& other) const;
-
+    friend ostream& operator<<(ostream& os,const CPlane& plane);
+    const CPlane& operator=(const CPlane& other);
+    bool operator==(const CPlane& other) const;
     void print() const;
 };
 #endif //AIRPORT_CPLANE_H

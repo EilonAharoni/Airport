@@ -9,6 +9,8 @@ using namespace std;
 class CCrewMember
 {
 private:
+    static int SERIAL_ID;
+    int id;
     string name;
     int airTime = 0; // in minutes
     CAddress address;
@@ -16,10 +18,14 @@ private:
 public:
     CCrewMember(string name, const CAddress& address, int airTime = 0);
     CCrewMember(CCrewMember& other) = default; // copy constructor
+    CCrewMember() = delete;
+    const CCrewMember& operator=(const CCrewMember& other);
     ~CCrewMember() = default;                  // destructor
     bool UpdateMinutes(int minutes);
-    const int getAirTime() const;
+    const CCrewMember& operator+=(int minutes);
 
+    const int getAirTime() const;
+    const int getId() const;
     void setName(const string& newName);
     const string getName() const;
 
@@ -27,8 +33,9 @@ public:
     CAddress getAddress() const;
 
     void print() const;
-
+    friend ostream& operator<<(ostream& os,const CCrewMember& crewMember);
     bool IsEqual(CCrewMember& other) const;
+    bool operator==(const CCrewMember& other);
 };
 
 
