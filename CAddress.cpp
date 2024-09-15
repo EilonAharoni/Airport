@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include "CAddress.h"
-#include <string>
 
 CAddress::CAddress(const int houseNum, const string& street, const string& city) {
     updateAddress(city, street, houseNum);
@@ -40,51 +39,6 @@ void CAddress::Print() const {
 
 }
 
-ostream &operator<<(ostream &os,const CAddress &address) {
-    os << address.street << ", " << address.houseNumber << ", " << address.city;
-    return os;
-}
-istream &operator>>(istream &in,  CAddress &address) {
-    cout << "Enter street: ";
-    getline(in,address.street);
-
-    cout << "Enter city (multiple words allowed): ";
-    getline(in, address.city);
-
-    cout << "Enter house number: ";
-    in >> address.houseNumber;
-    cin.sync();
-
- //   in >> address.street >> address.houseNumber >> address.city;// how to check correctness in houseNumber?
-    return in;
-}
-
-bool CAddress::operator==(const CAddress &other) const {
-    return (this->city == other.city && this->street == other.street && this->houseNumber == other.houseNumber);
-}
-
-bool CAddress::operator!=(const CAddress &other) const {
-    return !(*this == other);
-}
-
-string CAddress::GetCurrentAddress() const {
-   string address = this->street;
-   address+= ", ";
-   address += to_string(this->houseNumber);
-   address+= ", ";
-   address += this->city;
-    return address;
-}
-
-const CAddress &CAddress::operator=(const CAddress &other) {
-    if(this != &other)// prevent unnecessary duplication
-    {
-        this->city = other.city;
-        this->street = other.street;
-        this->houseNumber = other.houseNumber;
-    }
-    return *this;
-}
 
 
 //
