@@ -22,7 +22,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo)
 CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 {
 	this->plane = plane;
-	this->flightInfo = new CFlightInfo(flightInfo);
+	*this->flightInfo = flightInfo;
 	this->numOfCrewMembers = 0;
 	for(int i = 0; i < MAX_CREW_MEMBERS; i++)
 	{
@@ -32,7 +32,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 
 CFlight::CFlight(const CFlight& other)
 {
-	this->flightInfo = new CFlightInfo(*other.flightInfo);
+	*this->flightInfo =  *other.flightInfo;
 	this->plane = other.plane;
 	this->numOfCrewMembers = other.numOfCrewMembers;
 	for(int i = 0; i < other.numOfCrewMembers; i++)
@@ -43,7 +43,7 @@ CFlight::CFlight(const CFlight& other)
 
 CFlight::~CFlight()
 {
-	delete this->flightInfo;
+//	delete this->flightInfo;
 	this->flightInfo = nullptr;
 }
 
@@ -116,3 +116,9 @@ ostream& operator<<(ostream& os, const CFlight& r)
 	}
 	return os;
 }
+
+////
+int CFlight::getId() const {
+    return this->flightInfo->GetFNum();
+}
+////

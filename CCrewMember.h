@@ -36,6 +36,8 @@ public:
     friend ostream& operator<<(ostream& os,const CCrewMember& crewMember);
     bool IsEqual(CCrewMember& other) const;
     bool operator==(const CCrewMember& other);
+    static int START_ID;
+
 };
 
 

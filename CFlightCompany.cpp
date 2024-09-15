@@ -50,10 +50,10 @@ CCrewMember* CFlightCompany::GetCrewMemberByID(int id) const
 {
 	for(int i = 0; i < this->numOfCrewMembers; i++)
 	{
-		//if(this->crewMembers[i].getID() == id)
-		//{
-		//	return &this->crewMembers[i];
-		//}
+		if(this->crewMembers[i]->getId() == id)
+		{
+			return this->crewMembers[i];
+		}
 	}
 	return nullptr;
 }
@@ -63,10 +63,10 @@ CFlight* CFlightCompany::GetFlightByID(int id) const
 {
 	for(int i = 0; i < this->numOfFlights; i++)
 	{
-		//if(this->flights[i].getID() == id)
-		//{
-		//	return &this->flights[i];
-		//}
+		if(this->flights[i]->getId() == id)
+		{
+			return this->flights[i];
+		}
 	}
 	return nullptr;
 }
@@ -81,22 +81,76 @@ CPlane* CFlightCompany::GetPlane(int index) const
 
 bool CFlightCompany::AddCrewMember(const CCrewMember& crewMember)
 {
-	return false;
+    if(this->numOfCrewMembers >= MAX_CREW_MEMBERS)
+    {
+        cout << "cant add more crew members" << endl;
+        return false;
+    }
+    for (int i = 0; i < numOfCrewMembers; ++i)
+    {
+        if (*this->crewMembers[i] == crewMember)
+        {
+            cout << "This crew member already  in the company" << endl;
+            return false;
+        }
+
+    }
+    *this->crewMembers[numOfCrewMembers++] = crewMember;
+	return true;
 }
 
 bool CFlightCompany::AddPlane(const CPlane& plane)
 {
-	return false;
+    if(this->numOfPlanes >= MAX_PLANES)
+    {
+        cout << "cant add more planes" << endl;
+        return false;
+    }
+
+    for (int i = 0; i < numOfPlanes; ++i)
+    {
+        if (*this->planes[i] == plane)
+        {
+            cout << "This plane already in the company" << endl;
+            return false;
+        }
+    }
+    *this->planes[numOfPlanes++] = plane;
+	return true;
 }
 
 bool CFlightCompany::AddFlight(const CFlight& flight)
 {
-	return false;
+    if(this->numOfFlights >= MAX_FLIGHTS)
+    {
+        cout << "cant add more flight" << endl;
+        return false;
+    }
+
+    for (int i = 0; i < numOfFlights; ++i)
+    {
+        if (*this->flights[i] == flight)
+        {
+            cout << "This flight already in the company" << endl;
+            return false;
+        }
+    }
+    *this->flights[numOfFlights++] = flight;
+	return true;
 }
 
-bool CFlightCompany::AddCrewToFlight(int crewMemberID, int flightID)
+bool CFlightCompany::AddCrewToFlight(int flightID, int crewMemberID) const
 {
-	return false;
+    CCrewMember* crewMember = this->GetCrewMemberByID(crewMemberID);
+    CFlight* flight = this->GetFlightByID(flightID);
+    if(!crewMember || !flight)
+        return false;
+
+
+    *flight = *flight + crewMember;
+    return true;
+
+
 }
 
 const CFlightCompany& CFlightCompany::operator=(const CFlightCompany& r)
@@ -178,7 +232,7 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 	out << "There are " << r.numOfPlanes << " planes" << endl;
 	for (int i = 0; i < r.numOfPlanes; i++)
 	{
-		out << r.GetPlaneByIndex(i) << endl;
+		out << r.GetPlane(i) << endl;
 	}
 	// Print flights
 	out << "There are " << r.numOfFlights << " flights" << endl;

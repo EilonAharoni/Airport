@@ -24,9 +24,12 @@ public:
 	~CFlight();
 
 	void setPlane(CPlane* plane);
-	CFlight &CFlight::operator+(CCrewMember* crewMember);
-	CFlight &CFlight::operator=(const CFlight& r);
-	bool operator == (const CFlight& r) const;
+	CFlight &operator+(CCrewMember* crewMember);
+	CFlight &operator=(const CFlight& r);/////changed
+	bool operator == (const CFlight& r) const;////changed
+	////
+	int getId() const;
+    ////
 };
 
 

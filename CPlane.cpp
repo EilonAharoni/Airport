@@ -4,7 +4,7 @@
 #include "CPlane.h"
 
 using namespace std;
-int CPlane::SERIAL_ID = 100;
+int CPlane::SERIAL_ID = START_ID;
 CPlane::CPlane(const int num, string  model) : planeId(SERIAL_ID++), planeModel(std::move(model)), seats(num)
 {
 }

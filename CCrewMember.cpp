@@ -2,8 +2,8 @@
 #include <iostream>
 #include <utility>
 #include "CCrewMember.h"
-
-int CCrewMember::SERIAL_ID = 1000;
+int CCrewMember::START_ID = 1000;
+int CCrewMember::SERIAL_ID = START_ID;
 CCrewMember::CCrewMember(string  name, const CAddress& newAddress, int airTime) :
     id(SERIAL_ID++),name(std::move(name)), address(newAddress)
 {

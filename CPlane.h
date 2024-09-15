@@ -3,7 +3,7 @@
 #define AIRPORT_CPLANE_H
 
 #include <string>
-
+constexpr int START_ID = 100;
 using namespace std;
 
 class CPlane
