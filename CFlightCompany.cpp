@@ -19,6 +19,28 @@ CFlightCompany::CFlightCompany(const string company_name)
 	}
 }
 
+CFlightCompany::~CFlightCompany()
+{
+	//delete crew members
+	for (int i = 0; i < this->numOfCrewMembers; i++)
+	{
+		delete this->crewMembers[i];
+		this->crewMembers[i] = nullptr;
+	}
+	//delete planes
+	for (int i = 0; i < this->numOfPlanes; i++)
+	{
+		delete this->planes[i];
+		this->planes[i] = nullptr;
+	}
+	//delete flights
+	for (int i = 0; i < this->numOfFlights; i++)
+	{
+		delete this->flights[i];
+		this->flights[i] = nullptr;
+	}
+}
+
 const string CFlightCompany::GetName() const
 {
 	return this->company_name;
@@ -37,16 +59,8 @@ void CFlightCompany::SetName(const string new_company_name)
 void CFlightCompany::Print(ostream& out) const
 {
     out << *this << endl;
-	//out << "Company name: " << this->company_name << endl;
 }
 
-
-//void CFlightCompany::Print() const
-//{
-//	cout << "Company name: " << this->company_name << endl;
-//}
-
-//Need to implement
 CCrewMember* CFlightCompany::GetCrewMemberByID(int id) const
 {
 	for(int i = 0; i < this->numOfCrewMembers; i++)
@@ -59,7 +73,6 @@ CCrewMember* CFlightCompany::GetCrewMemberByID(int id) const
 	return nullptr;
 }
 
-//Need to implement
 CFlight* CFlightCompany::GetFlightByID(int id) const
 {
 	for(int i = 0; i < this->numOfFlights; i++)
