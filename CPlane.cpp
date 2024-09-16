@@ -40,7 +40,7 @@ CPlane CPlane::operator++(int) {
 }
 
 ostream &operator<<(ostream &os, const CPlane &plane) {
-    os << "Plane Number: " << plane.planeId <<  " Model: " << plane.planeModel << " seats: " << plane.seats;
+    os << "Plane Number: " << plane.planeId <<  " Model: " << plane.planeModel << " seats: " << plane.seats << endl;
     return os;
 }
 
