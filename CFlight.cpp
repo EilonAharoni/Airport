@@ -22,7 +22,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo)
 CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 {
 	this->plane = plane;
-	*this->flightInfo = flightInfo;
+	this->flightInfo = new CFlightInfo(flightInfo);
 	this->numOfCrewMembers = 0;
 	for(int i = 0; i < MAX_CREW_MEMBERS; i++)
 	{
@@ -32,7 +32,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 
 CFlight::CFlight(const CFlight& other)
 {
-	*this->flightInfo =  *other.flightInfo;
+	this->flightInfo =  new CFlightInfo(*other.flightInfo);
 	this->plane = other.plane;
 	this->numOfCrewMembers = other.numOfCrewMembers;
 	for(int i = 0; i < other.numOfCrewMembers; i++)
@@ -59,7 +59,7 @@ CFlight& CFlight::operator+(CCrewMember* crewMember)
 	//Check if the crew member is already in the flight
 		for(int i = 0; i < this->numOfCrewMembers; i++)
 			{
-				if(this->crewMembers[i] == crewMember)
+				if(*this->crewMembers[i] == *crewMember)
 				{
 					cout << "The crew member is already in the flight" << endl;
 					return *this;
@@ -107,12 +107,16 @@ if(*this->flightInfo == *r.flightInfo && this->plane == r.plane &&
 ostream& operator<<(ostream& os, const CFlight& r)
 {
 	os << "Flight info: " << endl;
-	os << *r.flightInfo << endl;
-	os << "Plane: " << r.plane << endl;
+    os << *r.flightInfo << endl;
+    if(r.plane)
+	    os << "Plane: " << *r.plane << endl;
+    else
+        os << "There is no plane yet";
+
 	os << "Crew members: " << endl;
 	for(int i = 0; i < r.numOfCrewMembers; i++)
 	{
-		os << r.crewMembers[i] << endl;
+		os << *(r.crewMembers[i]) << endl;
 	}
 	return os;
 }

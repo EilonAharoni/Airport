@@ -74,12 +74,15 @@ const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
     return *this;
 }
 
-ostream &operator<<(ostream &os, const CCrewMember &crewMember) {
+ostream &operator<<(ostream &os, const CCrewMember &crewMember)
+{
     os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << " , ";
+    return os;
 }
 
-const int CCrewMember::getId() const {
-    id;
+const int CCrewMember::getId() const
+{
+    return id;
 }
 
 

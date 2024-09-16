@@ -36,7 +36,8 @@ void CFlightCompany::SetName(const string new_company_name)
 
 void CFlightCompany::Print(ostream& out) const
 {
-	out << "Company name: " << this->company_name << endl;
+    out << *this << endl;
+	//out << "Company name: " << this->company_name << endl;
 }
 
 
@@ -79,7 +80,7 @@ CPlane* CFlightCompany::GetPlane(int index) const
 	return this->planes[index];
 }
 
-bool CFlightCompany::AddCrewMember(const CCrewMember& crewMember)
+bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
 {
     if(this->numOfCrewMembers >= MAX_CREW_MEMBERS)
     {
@@ -95,11 +96,11 @@ bool CFlightCompany::AddCrewMember(const CCrewMember& crewMember)
         }
 
     }
-    *this->crewMembers[numOfCrewMembers++] = crewMember;
+    this->crewMembers[numOfCrewMembers++] = new CCrewMember(crewMember);
 	return true;
 }
 
-bool CFlightCompany::AddPlane(const CPlane& plane)
+bool CFlightCompany::AddPlane(CPlane& plane)
 {
     if(this->numOfPlanes >= MAX_PLANES)
     {
@@ -115,11 +116,11 @@ bool CFlightCompany::AddPlane(const CPlane& plane)
             return false;
         }
     }
-    *this->planes[numOfPlanes++] = plane;
+    this->planes[numOfPlanes++] = new CPlane(plane);
 	return true;
 }
 
-bool CFlightCompany::AddFlight(const CFlight& flight)
+bool CFlightCompany::AddFlight(CFlight& flight)
 {
     if(this->numOfFlights >= MAX_FLIGHTS)
     {
@@ -135,7 +136,7 @@ bool CFlightCompany::AddFlight(const CFlight& flight)
             return false;
         }
     }
-    *this->flights[numOfFlights++] = flight;
+    this->flights[numOfFlights++] = new CFlight(flight);
 	return true;
 }
 
@@ -221,24 +222,24 @@ bool CFlightCompany::operator==(const CFlightCompany& r) const
 
 ostream& operator<<(ostream& out, const CFlightCompany& r)
 {
-	out << "Company name: " << r.company_name << endl;
+	out << "Flight company: " << r.company_name << endl;
 	// Print crew members
 	out << "There are " << r.numOfCrewMembers << " crew members" << endl;
 	for (int i = 0; i < r.numOfCrewMembers; i++)
 	{
-		out << r.crewMembers[i] << endl;
+		out << *(r.crewMembers[i]) << endl;
 	}
 	// Print planes
 	out << "There are " << r.numOfPlanes << " planes" << endl;
 	for (int i = 0; i < r.numOfPlanes; i++)
 	{
-		out << r.GetPlane(i) << endl;
+		out << *r.planes[i] << endl;
 	}
 	// Print flights
 	out << "There are " << r.numOfFlights << " flights" << endl;
 	for (int i = 0; i < r.numOfFlights; i++)
 	{
-		out << r.flights[i] << endl;
+		out << *r.flights[i] << endl;
 	}
 	return out;
 }

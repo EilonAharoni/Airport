@@ -28,9 +28,9 @@ public:
 	CFlight* GetFlightByID(int id) const;
 	CPlane* GetPlane(int index) const;
 
-	bool AddCrewMember(const CCrewMember& crewMember);
-	bool AddPlane(const CPlane& plane);
-	bool AddFlight(const CFlight& flight);
+	bool AddCrewMember(CCrewMember& crewMember);
+	bool AddPlane(CPlane& plane);
+	bool AddFlight(CFlight& flight);
 	bool AddCrewToFlight(int flightID, int crewMemberID) const;
 
 	const CFlightCompany& operator = (const CFlightCompany& r);
@@ -41,13 +41,13 @@ private:
 	string company_name;
 	
 	// part 2   ////// maybe it need to be arrayed of elements and not pointers (clones)?
-	CCrewMember* crewMembers[MAX_CREW_MEMBERS]; 
+	CCrewMember* crewMembers[MAX_CREW_MEMBERS];
 	int numOfCrewMembers;
 	
-	CPlane* planes[MAX_PLANES]; 
+	CPlane* planes[MAX_PLANES];
 	int numOfPlanes;
 
-	CFlight* flights[MAX_FLIGHTS]; 
+	CFlight* flights[MAX_FLIGHTS];
 	int numOfFlights;
 };
 
