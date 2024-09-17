@@ -43,7 +43,7 @@ CFlight::CFlight(const CFlight& other)
 
 CFlight::~CFlight()
 {
-//	delete this->flightInfo;
+	delete this->flightInfo;
 	this->flightInfo = nullptr;
 }
 
@@ -106,17 +106,23 @@ if(*this->flightInfo == *r.flightInfo && this->plane == r.plane &&
 
 ostream& operator<<(ostream& os, const CFlight& r)
 {
-	os << "Flight info: " << endl;
     os << *r.flightInfo << endl;
     if(r.plane)
 	    os << "Plane: " << *r.plane << endl;
     else
-        os << "There is no plane yet";
-
-	os << "Crew members: " << endl;
-	for(int i = 0; i < r.numOfCrewMembers; i++)
+        os << "There is no plane yet" << endl;
+	if (r.numOfCrewMembers == 0)
 	{
-		os << *(r.crewMembers[i]) << endl;
+		os << "There are no crew members in the flight" << endl;
+		return os;
+	}
+	else
+	{
+		os << "Crew members: " << endl;
+		for(int i = 0; i < r.numOfCrewMembers; i++)
+		{
+			os << *(r.crewMembers[i]) << endl;
+		}
 	}
 	return os;
 }

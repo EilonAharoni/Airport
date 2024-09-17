@@ -16,7 +16,7 @@ class CFlightCompany
 public:
 	CFlightCompany(const string name);
 	CFlightCompany(const CFlightCompany& other) = delete; // Copy Constructor
-	~CFlightCompany() = default;						   // Destructor
+	~CFlightCompany();									  // Destructor
     CFlightCompany() = delete;
 	const string GetName() const;
 	void SetName(const string name);
