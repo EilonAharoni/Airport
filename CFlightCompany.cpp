@@ -5,17 +5,17 @@
 CFlightCompany::CFlightCompany(const string company_name)
 	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
 {
-	for(int i = 0; i < MAX_CREW_MEMBERS; i++)
+	for(auto & crewMember : this->crewMembers)
 	{
-		this->crewMembers[i] = nullptr;
+		crewMember = nullptr;
 	}
-	for(int i = 0; i < MAX_PLANES; i++)
+	for(auto & plane : this->planes)
 	{
-		this->planes[i] = nullptr;
+		plane = nullptr;
 	}
-	for(int i = 0; i < MAX_FLIGHTS; i++)
+	for(auto & flight : this->flights)
 	{
-		this->flights[i] = nullptr;
+		flight = nullptr;
 	}
 }
 
@@ -166,7 +166,7 @@ bool CFlightCompany::AddCrewToFlight(int flightID, int crewMemberID) const
 
 
 }
-
+/// need to delete this function, we dont want to able duplicate company & this dup pointers and not clone the values
 const CFlightCompany& CFlightCompany::operator=(const CFlightCompany& r)
 {
 	if(this == &r)
