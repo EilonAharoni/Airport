@@ -3,7 +3,7 @@
 #include <iostream>
 
 //Still get warnings about uninitalized variables
-CFlightCompany::CFlightCompany(const string company_name)
+CFlightCompany::CFlightCompany(const string& company_name)
 	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
 {
 	for (auto& crewMember : this->crewMembers)
@@ -47,7 +47,7 @@ const string CFlightCompany::getName() const
 	return this->company_name;
 }
 
-void CFlightCompany::setName(const string new_company_name)
+void CFlightCompany::setName(const string& new_company_name)
 {
 	if (new_company_name.empty())
 	{

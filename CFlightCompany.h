@@ -13,12 +13,12 @@ using namespace std;
 class CFlightCompany
 {
 public:
-	CFlightCompany(const string name);
+	CFlightCompany(const string& name);
 	CFlightCompany(const CFlightCompany& other) = delete; // Copy Constructor
 	~CFlightCompany();									  // Destructor
     CFlightCompany() = delete;
 	const string getName() const;
-	void setName(const string name);
+	void setName(const string& name);
 	void print(ostream& out) const; // Print function
 
 	// Part 2
