@@ -4,7 +4,7 @@
 
 #include "CFlightInfo.h"
 
-CFlightInfo::CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance)
+CFlightInfo::CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance)
     : flight_number(flight_number),
 
     destination(destination)
@@ -19,7 +19,7 @@ void CFlightInfo::setFlightNumber(const int flight_number)
     this->flight_number = flight_number;
 }
 
-void CFlightInfo::setDest(const string new_destination)
+void CFlightInfo::setDest(const string& new_destination)
 {
     if (new_destination.empty())
     {
