@@ -1,6 +1,4 @@
 #include "CFlight.h"
-
-#include "CFlight.h"
 #include <iostream>
 
 //Ctors
@@ -14,7 +12,6 @@ CFlight::CFlight(const CFlightInfo& flightInfo)
 		this->crewMembers[i] = nullptr;
 	}
 }
-
 
 CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 {
