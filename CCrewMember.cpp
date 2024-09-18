@@ -45,18 +45,10 @@ CAddress CCrewMember::getAddress() const {
 void CCrewMember::print() const {
     cout << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime << " , ";
     this->address.Print();
-
-
 }
 
 bool CCrewMember::IsEqual(CCrewMember& other) const {
     return this->name == other.name;
-}
-
-const CCrewMember &CCrewMember::operator+=(int minutes) {
-    if (airTime + minutes >= 0)
-        airTime+=minutes;// air Time must be >= 0;
-    return *this;
 }
 
 bool CCrewMember::operator==(const CCrewMember &other) {
@@ -76,8 +68,18 @@ const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
 
 ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 {
-    os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << " , ";
+    os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: " << crewMember.address;
     return os;
+}
+
+bool operator+=(CCrewMember& crewMember, int minutes)
+{
+    if (crewMember.getAirTime() + minutes >= 0)
+    {
+		crewMember.UpdateMinutes(minutes);
+		return true;
+	}
+    return false;
 }
 
 const int CCrewMember::getId() const

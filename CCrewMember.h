@@ -19,25 +19,25 @@ public:
     CCrewMember(string name, const CAddress& address, int airTime = 0);
     CCrewMember(CCrewMember& other) = default; // copy constructor
     CCrewMember() = delete;
-    const CCrewMember& operator=(const CCrewMember& other);
     ~CCrewMember() = default;                  // destructor
-    bool UpdateMinutes(int minutes);
-    const CCrewMember& operator+=(int minutes);
 
+    //Getters
     const int getAirTime() const;
     const int getId() const;
-    void setName(const string& newName);
-    const string getName() const;
-
-    void setAddress(CAddress& newAddress);
     CAddress getAddress() const;
+    const string getName() const;
+    // Setters
+    void setName(const string& newName);
+    void setAddress(CAddress& newAddress);
 
     void print() const;
+    bool UpdateMinutes(int minutes);
     friend ostream& operator<<(ostream& os,const CCrewMember& crewMember);
-    bool IsEqual(CCrewMember& other) const;
+    const CCrewMember& operator=(const CCrewMember& other);
+    friend bool operator+=(CCrewMember& crewMember, int minutes);
     bool operator==(const CCrewMember& other);
-    static int START_ID;
-
+    bool IsEqual(CCrewMember& other) const;
+    static int START_ID; // start from 1000
 };
 
 
