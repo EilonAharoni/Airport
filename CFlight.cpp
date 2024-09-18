@@ -1,13 +1,7 @@
 #include "CFlight.h"
-//
-// Created by אילון אהרוני on 12/09/2024.
-//
-
-#include "CFlight.h"
 #include <iostream>
 
 //Ctors
-
 CFlight::CFlight(const CFlightInfo& flightInfo)
 {
 	this->plane = nullptr;
@@ -127,8 +121,6 @@ ostream& operator<<(ostream& os, const CFlight& r)
 	return os;
 }
 
-////
 int CFlight::getId() const {
-    return this->flightInfo->GetFNum();
+    return this->flightInfo->getFNum();
 }
-////

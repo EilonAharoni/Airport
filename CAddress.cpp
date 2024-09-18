@@ -3,11 +3,13 @@
 #include "CAddress.h"
 #include <string>
 
-CAddress::CAddress(const int houseNum, const string& street, const string& city) {
+CAddress::CAddress(const int houseNum, const string& street, const string& city) 
+{
     updateAddress(city, street, houseNum);
 }
 
-void CAddress::updateAddress(const string& newCity, const string& newStreet, int houseNum) {
+void CAddress::updateAddress(const string& newCity, const string& newStreet, int houseNum) 
+{
 
     if (newStreet.empty() || newCity.empty())
     {
@@ -15,37 +17,40 @@ void CAddress::updateAddress(const string& newCity, const string& newStreet, int
         return;
     }
     this->city = newCity;
-
-
     this->street = newStreet;
 
     if (houseNum > 0)
         this->houseNumber = houseNum;
 }
 
-const string CAddress::getCity() const {
+const string CAddress::getCity() const 
+{
     return this->city;
 }
 
-const string CAddress::getStreet() const {
+const string CAddress::getStreet() const 
+{
     return this->street;
 }
 
-const int CAddress::getHouseNumber() const {
+const int CAddress::getHouseNumber() const 
+{
     return this->houseNumber;
 }
 
-void CAddress::Print() const {
+void CAddress::Print() const 
+{
     cout << this->street << ", " << this->houseNumber << ", " << this->city << endl;
-
 }
 
-ostream &operator<<(ostream &os,const CAddress &address) {
+ostream &operator<<(ostream &os,const CAddress &address) 
+{
     os << address.street << ", " << address.houseNumber << ", " << address.city;
     return os;
 }
-istream &operator>>(istream &in,  CAddress &address) {
-    cout << "Enter street: ";
+istream &operator>>(istream &in,  CAddress &address) 
+{
+    cout << "Enter street (multiple words allowed): ";
     getline(in,address.street);
 
     cout << "Enter city (multiple words allowed): ";
@@ -53,21 +58,27 @@ istream &operator>>(istream &in,  CAddress &address) {
 
     cout << "Enter house number: ";
     in >> address.houseNumber;
+    if (address.houseNumber < 0)
+    {
+        // invalid house number
+		address.houseNumber = 0;
+	}
     cin.sync();
-
- //   in >> address.street >> address.houseNumber >> address.city;// how to check correctness in houseNumber?
     return in;
 }
 
-bool CAddress::operator==(const CAddress &other) const {
+bool CAddress::operator==(const CAddress &other) const 
+{
     return (this->city == other.city && this->street == other.street && this->houseNumber == other.houseNumber);
 }
 
-bool CAddress::operator!=(const CAddress &other) const {
+bool CAddress::operator!=(const CAddress &other) const 
+{
     return !(*this == other);
 }
 
-string CAddress::GetCurrentAddress() const {
+string CAddress::GetCurrentAddress() const 
+{
    string address = this->street;
    address+= ", ";
    address += to_string(this->houseNumber);
@@ -76,7 +87,8 @@ string CAddress::GetCurrentAddress() const {
     return address;
 }
 
-const CAddress &CAddress::operator=(const CAddress &other) {
+const CAddress &CAddress::operator=(const CAddress &other) 
+{
     if(this != &other)// prevent unnecessary duplication
     {
         this->city = other.city;
@@ -85,6 +97,3 @@ const CAddress &CAddress::operator=(const CAddress &other) {
     }
     return *this;
 }
-
-
-//

@@ -12,16 +12,14 @@ using namespace std;
 
 class CFlightCompany
 {
-	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
 public:
-	CFlightCompany(const string name);
+	CFlightCompany(const string& name);
 	CFlightCompany(const CFlightCompany& other) = delete; // Copy Constructor
 	~CFlightCompany();									  // Destructor
     CFlightCompany() = delete;
-	const string GetName() const;
-	void SetName(const string name);
-
-	void Print(ostream& out) const; // Print function
+	const string getName() const;
+	void setName(const string& name);
+	void print(ostream& out) const; // Print function
 
 	// Part 2
 	CCrewMember* GetCrewMemberByID(int id) const;
@@ -33,14 +31,14 @@ public:
 	bool AddFlight(CFlight& flight);
 	bool AddCrewToFlight(int flightID, int crewMemberID) const;
 
-	const CFlightCompany& operator = (const CFlightCompany& r);
 	bool operator == (const CFlightCompany& r) const;	
-
+	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
+	//** WE dont wanna be able to clone a company **//
+	const CFlightCompany& operator = (const CFlightCompany& r) = delete;
 
 private:
 	string company_name;
 	
-	// part 2   ////// maybe it need to be arrayed of elements and not pointers (clones)?
 	CCrewMember* crewMembers[MAX_CREW_MEMBERS];
 	int numOfCrewMembers;
 	
