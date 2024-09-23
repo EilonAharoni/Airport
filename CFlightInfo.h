@@ -8,13 +8,13 @@ class CFlightInfo {
 	friend ostream& operator << (ostream& out, const CFlightInfo& r); 
 public:
 	CFlightInfo() = delete;
-	CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance);
+	CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance);
 	CFlightInfo(const CFlightInfo& other) = default; // Copy Constructor
 	~CFlightInfo() = default;						 // Destructor
-	const int GetFNum() const;
+	const int getFNum() const;
 	void setFlightNumber(const int flight_number);
 	const string getDestination() const;
-	void SetDest(const string new_destination);
+	void setDest(const string& new_destination);
 	const int getFlightTime() const;
 	void setFlightTime(const int new_flight_time);
 	const int getFlightDistance() const;
@@ -24,7 +24,6 @@ public:
 	bool operator == (const CFlightInfo& r) const;
 	bool operator != (const CFlightInfo& r) const;
 	operator int() const;
-	//void Print() const;
 
 private:
 	string destination;

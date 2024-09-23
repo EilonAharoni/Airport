@@ -2,18 +2,19 @@
 #include "CFlightCompany.h"
 #include <iostream>
 
-CFlightCompany::CFlightCompany(const string company_name)
+//Still get warnings about uninitalized variables
+CFlightCompany::CFlightCompany(const string& company_name)
 	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
 {
-	for(auto & crewMember : this->crewMembers)
+	for (auto& crewMember : this->crewMembers)
 	{
 		crewMember = nullptr;
 	}
-	for(auto & plane : this->planes)
+	for (auto& plane : this->planes)
 	{
 		plane = nullptr;
 	}
-	for(auto & flight : this->flights)
+	for (auto& flight : this->flights)
 	{
 		flight = nullptr;
 	}
@@ -41,12 +42,12 @@ CFlightCompany::~CFlightCompany()
 	}
 }
 
-const string CFlightCompany::GetName() const
+const string CFlightCompany::getName() const
 {
 	return this->company_name;
 }
 
-void CFlightCompany::SetName(const string new_company_name)
+void CFlightCompany::setName(const string& new_company_name)
 {
 	if (new_company_name.empty())
 	{
@@ -56,7 +57,7 @@ void CFlightCompany::SetName(const string new_company_name)
 	this->company_name = new_company_name;
 }
 
-void CFlightCompany::Print(ostream& out) const
+void CFlightCompany::print(ostream& out) const
 {
     out << *this << endl;
 }
@@ -109,7 +110,8 @@ bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
         }
 
     }
-    this->crewMembers[numOfCrewMembers++] = new CCrewMember(crewMember);
+    this->crewMembers[numOfCrewMembers] = new CCrewMember(crewMember);
+	numOfCrewMembers++;
 	return true;
 }
 
@@ -129,7 +131,8 @@ bool CFlightCompany::AddPlane(CPlane& plane)
             return false;
         }
     }
-    this->planes[numOfPlanes++] = new CPlane(plane);
+    this->planes[numOfPlanes] = new CPlane(plane);
+	numOfPlanes++;
 	return true;
 }
 
@@ -149,7 +152,8 @@ bool CFlightCompany::AddFlight(CFlight& flight)
             return false;
         }
     }
-    this->flights[numOfFlights++] = new CFlight(flight);
+    this->flights[numOfFlights] = new CFlight(flight);
+	numOfFlights++;
 	return true;
 }
 
@@ -160,42 +164,8 @@ bool CFlightCompany::AddCrewToFlight(int flightID, int crewMemberID) const
     if(!crewMember || !flight)
         return false;
 
-
     *flight = *flight + crewMember;
     return true;
-
-
-}
-/// need to delete this function, we dont want to able duplicate company & this dup pointers and not clone the values
-const CFlightCompany& CFlightCompany::operator=(const CFlightCompany& r)
-{
-	if(this == &r)
-		return *this;
-	
-	this->company_name = r.company_name;
-	
-	// Copy crew members
-	for (int i = 0; i < r.numOfCrewMembers; i++)
-	{
-		this->crewMembers[i] = r.crewMembers[i];
-	}
-	this->numOfCrewMembers = r.numOfCrewMembers;
-	
-	// Copy planes
-	for (int i = 0; i < r.numOfPlanes; i++)
-	{
-		this->planes[i] = r.planes[i];
-	}
-	this->numOfPlanes = r.numOfPlanes;
-	
-	// Copy flights
-	for (int i = 0; i < r.numOfFlights; i++)
-	{
-		this->flights[i] = r.flights[i];
-	}
-	this->numOfFlights = r.numOfFlights;
-	
-	return *this;
 }
 
 bool CFlightCompany::operator==(const CFlightCompany& r) const
@@ -256,3 +226,36 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 	}
 	return out;
 }
+
+//** WE dont wanna be able to clone a company **//
+// 
+//const CFlightCompany& CFlightCompany::operator=(const CFlightCompany& r)
+//{
+//	if(this == &r)
+//		return *this;
+//	
+//	this->company_name = r.company_name;
+//	
+//	// Copy crew members
+//	for (int i = 0; i < r.numOfCrewMembers; i++)
+//	{
+//		this->crewMembers[i] = r.crewMembers[i];
+//	}
+//	this->numOfCrewMembers = r.numOfCrewMembers;
+//	
+//	// Copy planes
+//	for (int i = 0; i < r.numOfPlanes; i++)
+//	{
+//		this->planes[i] = r.planes[i];
+//	}
+//	this->numOfPlanes = r.numOfPlanes;
+//	
+//	// Copy flights
+//	for (int i = 0; i < r.numOfFlights; i++)
+//	{
+//		this->flights[i] = r.flights[i];
+//	}
+//	this->numOfFlights = r.numOfFlights;
+//	
+//	return *this;
+//}

@@ -4,7 +4,7 @@
 
 #include "CFlightInfo.h"
 
-CFlightInfo::CFlightInfo(const string destination, int flight_number, int flight_time, int flight_distance)
+CFlightInfo::CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance)
     : flight_number(flight_number),
 
     destination(destination)
@@ -19,7 +19,7 @@ void CFlightInfo::setFlightNumber(const int flight_number)
     this->flight_number = flight_number;
 }
 
-void CFlightInfo::SetDest(const string new_destination)
+void CFlightInfo::setDest(const string& new_destination)
 {
     if (new_destination.empty())
     {
@@ -49,7 +49,7 @@ void CFlightInfo::setFlightDistance(const int new_flight_distance)
     this->flight_distance = new_flight_distance;
 }
 // getters
-const int CFlightInfo::GetFNum() const
+const int CFlightInfo::getFNum() const
 {
     return this->flight_number;
 }
@@ -101,15 +101,6 @@ CFlightInfo::operator int() const
 {
     return this->flight_duration;
 }
-
-//void CFlightInfo::Print() const
-//{
-//    cout << "Flight info " << endl;
-//    cout << "Flight number: " << this->getFlightNumber() << endl;
-//    cout << "Destination: " << this->getDestination() << endl;
-//    cout << "Flight time: " << this->getFlightTime() << endl;
-//    cout << "Flight distance: " << this->getFlightDistance() << endl;
-//}
 
 ostream& operator<<(ostream& out, const CFlightInfo& r)
 {
