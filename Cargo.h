@@ -2,7 +2,7 @@
 #ifndef AIRPORT_CCARGO_H
 #define AIRPORT_CCARGO_H
 
-using namespace std;
+
 #include <iostream>
 #include "CPlane.h"
 

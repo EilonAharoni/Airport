@@ -2,10 +2,9 @@
 #include <iostream>
 #include <utility>
 #include "CCrewMember.h"
-int CCrewMember::START_ID = 1000;
-int CCrewMember::SERIAL_ID = START_ID;
-CCrewMember::CCrewMember(string  name, const CAddress& newAddress, int airTime) :
-    id(SERIAL_ID++),name(std::move(name)), address(newAddress)
+//int CCrewMember::START_ID = 1000;
+//int CCrewMember::SERIAL_ID = START_ID;
+CCrewMember::CCrewMember(string name, int airTime) :name(std::move(name))
 {
     UpdateMinutes(airTime);
 }
@@ -33,18 +32,18 @@ const string CCrewMember::getName() const {
     return this->name;
 }
 
-void CCrewMember::setAddress(CAddress& newAddress) {
-    this->address.updateAddress(newAddress.getCity(), newAddress.getStreet(), newAddress.getHouseNumber());
+//void CCrewMember::setAddress(CAddress& newAddress) {
+//    this->address.updateAddress(newAddress.getCity(), newAddress.getStreet(), newAddress.getHouseNumber());
+//
+//}
 
-}
+//CAddress CCrewMember::getAddress() const {
+//    return this->address;
+//}
 
-CAddress CCrewMember::getAddress() const {
-    return this->address;
-}
-
-void CCrewMember::print() const {
-    cout << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime << " , ";
-    this->address.Print();
+void CCrewMember::print(ostream& os) const {
+    os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;// << " , ";
+ //   this->address.Print();
 }
 
 bool CCrewMember::IsEqual(CCrewMember& other) const {
@@ -52,7 +51,7 @@ bool CCrewMember::IsEqual(CCrewMember& other) const {
 }
 
 bool CCrewMember::operator==(const CCrewMember &other) {
-    return (this->name == other.name && this->id == other.id);
+    return (this->name == other.name);
 }
 
 const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
@@ -60,15 +59,13 @@ const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
     {
         this->name = other.name;
         this->airTime = other.airTime;
-        this->address = other.address;
-        this->id = other.id;
     }
     return *this;
 }
 
 ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 {
-    os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: " << crewMember.address;
+    os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: ";// << crewMember.address;
     return os;
 }
 
@@ -82,10 +79,20 @@ bool operator+=(CCrewMember& crewMember, int minutes)
     return false;
 }
 
-const int CCrewMember::getId() const
+void CCrewMember::takeoff(int flightTime)
 {
-    return id;
+    UpdateMinutes(flightTime);
 }
+
+void CCrewMember::getHolidayGift()
+{
+    cout << name + " thanking the company for receiving the holiday gift." << endl;
+}
+
+//const int CCrewMember::getId() const
+//{
+//    return id;
+//}
 
 
 

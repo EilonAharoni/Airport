@@ -1,6 +1,8 @@
 #include "Cargo.h"
 
-CCargo::CCargo(int numOfSeats, string modelName, const float maxCargoWeight, const float maxCargoVolume) : CPlane(numOfSeats, modelName),
+#include <utility>
+
+CCargo::CCargo(int numOfSeats, string modelName, const float maxCargoWeight, const float maxCargoVolume) : CPlane(numOfSeats, std::move(modelName)),
 maxCargoWeight(maxCargoWeight), maxCargoVolume(maxCargoVolume), currentCargoWeight(0), currentCargoVolume(0)
 {
 }
