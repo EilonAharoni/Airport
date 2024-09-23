@@ -38,6 +38,7 @@ void CHost::getHolidayGift()
 void CHost::print(ostream &os) const {
     cout << "Host " << types[this->type] << " ";
     CCrewMember::print(os);
+    cout << endl;
 
 }
 

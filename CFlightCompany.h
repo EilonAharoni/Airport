@@ -1,7 +1,7 @@
 
 #ifndef AIRPORT_CFLIGHTCOMPANY_H
 #define AIRPORT_CFLIGHTCOMPANY_H
-using namespace std;
+
 #include <string>
 #include "CCrewMember.h"
 #include "CPlane.h"
@@ -22,7 +22,7 @@ public:
 	void print(ostream& out) const; // Print function
 
 	// Part 2
-	CCrewMember* GetCrewMemberByID(int id) const;
+	CCrewMember* GetCrewMember(int index) const;
 	CFlight* GetFlightByID(int id) const;
 	CPlane* GetPlane(int index) const;
 

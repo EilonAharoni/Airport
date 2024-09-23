@@ -1,7 +1,9 @@
 
-#include "CFlightCompany.h"
 #include <iostream>
-
+#include <typeinfo>
+#include "CFlightCompany.h"
+#include "CPilot.h"
+#include "CHost.h"
 //Still get warnings about uninitalized variables
 CFlightCompany::CFlightCompany(const string& company_name)
 	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
@@ -62,16 +64,13 @@ void CFlightCompany::print(ostream& out) const
     out << *this << endl;
 }
 
-CCrewMember* CFlightCompany::GetCrewMemberByID(int id) const
+CCrewMember* CFlightCompany::GetCrewMember (int index) const
 {
-	for(int i = 0; i < this->numOfCrewMembers; i++)
-	{
-		if(this->crewMembers[i]->getId() == id)
-		{
-			return this->crewMembers[i];
-		}
-	}
-	return nullptr;
+    if(index < 0 || index >= this->numOfCrewMembers)
+        return nullptr;
+
+    return this->crewMembers[index];
+
 }
 
 CFlight* CFlightCompany::GetFlightByID(int id) const
@@ -101,18 +100,27 @@ bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
         cout << "cant add more crew members" << endl;
         return false;
     }
+
     for (int i = 0; i < numOfCrewMembers; ++i)
-    {
-        if (*this->crewMembers[i] == crewMember)
+    {// Check if they are of the same type and if they are equal
+        if (typeid(*this->crewMembers[i]) == typeid(crewMember) &&  *this->crewMembers[i] == crewMember)
         {
             cout << "This crew member already  in the company" << endl;
             return false;
         }
 
     }
-    this->crewMembers[numOfCrewMembers] = new CCrewMember(crewMember);
-	numOfCrewMembers++;
-	return true;
+    // Add the correct type of crew member to the company
+    if (CPilot* pilot = dynamic_cast<CPilot*>(&crewMember)) {
+        // Add a new CPilot
+        this->crewMembers[numOfCrewMembers] = new CPilot(*pilot);
+    }
+    else if (CHost* host = dynamic_cast<CHost*>(&crewMember)) {
+        // Add a new CHost
+        this->crewMembers[numOfCrewMembers] = new CHost(*host);
+    }
+    numOfCrewMembers++;
+    return true;
 }
 
 bool CFlightCompany::AddPlane(CPlane& plane)
@@ -157,9 +165,9 @@ bool CFlightCompany::AddFlight(CFlight& flight)
 	return true;
 }
 
-bool CFlightCompany::AddCrewToFlight(int flightID, int crewMemberID) const
+bool CFlightCompany::AddCrewToFlight(int flightID, int index) const
 {
-    CCrewMember* crewMember = this->GetCrewMemberByID(crewMemberID);
+    CCrewMember* crewMember = this->GetCrewMember(index);
     CFlight* flight = this->GetFlightByID(flightID);
     if(!crewMember || !flight)
         return false;
@@ -259,3 +267,4 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 //	
 //	return *this;
 //}
+

@@ -55,6 +55,7 @@ void CPilot::print(ostream &os) const {
     CCrewMember::print(os);
     if(captain)
         os << " a Captain";
+    os << " Home" << *address;
     os << endl;
 }
 
