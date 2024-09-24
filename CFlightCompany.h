@@ -25,11 +25,17 @@ public:
 	CCrewMember* GetCrewMember(int index) const;
 	CFlight* GetFlightByID(int id) const;
 	CPlane* GetPlane(int index) const;
+    int GetCargoCount() const;
 
 	bool AddCrewMember(CCrewMember& crewMember);
 	bool AddPlane(CPlane& plane);
 	bool AddFlight(CFlight& flight);
-	bool AddCrewToFlight(int flightID, int crewMemberID) const;
+	bool AddCrewToFlight(int flightID, int crewMemberIndex) const;
+
+    //part3
+    void CrewGetPresent() const;
+    void PilotsToSimulator() const;
+    void CrewGetUniform() const;
 
 	bool operator == (const CFlightCompany& r) const;	
 	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend

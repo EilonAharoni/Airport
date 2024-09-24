@@ -106,8 +106,8 @@ ostream& operator<<(ostream& out, const CFlightInfo& r)
 {
     out << "Flight info:" << endl;
     out << "Flight number: " << r.flight_number  << endl;
-    out << "Destination: " << r.destination << endl;
-    out << "Flight duration: " << r.flight_duration << endl;
-    out << "Flight distance: " << r.flight_distance << endl;
+    out << "Destination: " << r.destination  << endl;
+    out << "Flight duration: " << r.flight_duration << " Minutes" <<endl;
+    out << "Flight distance: " << r.flight_distance << " KM" << endl;
     return out; 
 }

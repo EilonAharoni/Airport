@@ -4,6 +4,7 @@
 #include "CFlightCompany.h"
 #include "CPilot.h"
 #include "CHost.h"
+#include "Cargo.h"
 //Still get warnings about uninitalized variables
 CFlightCompany::CFlightCompany(const string& company_name)
 	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
@@ -133,11 +134,17 @@ bool CFlightCompany::AddPlane(CPlane& plane)
 
     for (int i = 0; i < numOfPlanes; ++i)
     {
-        if (*this->planes[i] == plane)
+        if (typeid(plane) == typeid(*planes[i]) && *this->planes[i] == plane)
         {
             cout << "This plane already in the company" << endl;
             return false;
         }
+    }
+    CCargo* cargo = dynamic_cast<CCargo*>(&plane);
+    if(cargo)
+    {
+        this->planes[numOfPlanes++] = new CCargo(*cargo);
+        return true;
     }
     this->planes[numOfPlanes] = new CPlane(plane);
 	numOfPlanes++;
@@ -233,6 +240,46 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 		out << *r.flights[i] << endl;
 	}
 	return out;
+}
+
+int CFlightCompany::GetCargoCount() const
+{
+    int numOfCargo =0;
+    for (int i =0; i<numOfPlanes; i++)
+    { //// check if it is cargo plane withe dynamic casting
+        CCargo* cargo = dynamic_cast<CCargo*>(planes[i]);
+        if(cargo)
+            numOfCargo++;
+    }
+
+    return numOfCargo;
+}
+
+void CFlightCompany::CrewGetPresent() const
+{
+    for (int i = 0; i < numOfCrewMembers; i++)
+    {
+        crewMembers[i]->getHolidayGift();
+    }
+}
+
+void CFlightCompany::PilotsToSimulator() const
+{
+    for (auto& crewM:crewMembers)
+    {
+        CPilot* pilot = dynamic_cast<CPilot*>(crewM);
+        if(pilot)
+            pilot->comeToSimulator();
+    }
+
+}
+
+void CFlightCompany::CrewGetUniform() const
+{
+    for (int i = 0; i<numOfCrewMembers; i++)
+    {
+        crewMembers[i]->changeUniform();
+    }
 }
 
 //** WE dont wanna be able to clone a company **//

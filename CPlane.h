@@ -18,7 +18,7 @@ private:
 public:
     CPlane(const int num, string model);
     CPlane(const CPlane& other) = default; //copy constructor
-    ~CPlane() = default;                   //destructor
+    virtual ~CPlane() = default;                   //destructor
     CPlane() = delete;
 
     const int getId() const;
@@ -32,6 +32,6 @@ public:
     bool operator==(const CPlane& other) const;
 
     bool isEqual(CPlane& other) const;
-    void print() const;
+    virtual void print() const;
 };
 #endif //AIRPORT_CPLANE_H

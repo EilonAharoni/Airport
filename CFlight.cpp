@@ -1,4 +1,7 @@
 #include "CFlight.h"
+#include "Cargo.h"
+#include "CPilot.h"
+#include "CHost.h"
 #include <iostream>
 
 //Ctors
@@ -107,12 +110,12 @@ ostream& operator<<(ostream& os, const CFlight& r)
         os << "There is no plane yet" << endl;
 	if (r.numOfCrewMembers == 0)
 	{
-		os << "There are no crew members in the flight" << endl;
+		os << "There are 0 crew members in the flight" << endl;
 		return os;
 	}
 	else
 	{
-		os << "Crew members: " << endl;
+		os << "There are " <<  r.numOfCrewMembers << " crew memebers in flight:" <<endl;
 		for(int i = 0; i < r.numOfCrewMembers; i++)
 		{
 			os << *(r.crewMembers[i]) << endl;
@@ -121,6 +124,46 @@ ostream& operator<<(ostream& os, const CFlight& r)
 	return os;
 }
 
-int CFlight::getId() const {
+int CFlight::getId() const
+{
     return this->flightInfo->getFNum();
+}
+
+const CFlightInfo &CFlight::GetFlightInfo() const
+{
+    return *this->flightInfo;
+}
+
+bool CFlight::TakeOff() const
+{
+    int numOfPilots = 0;
+    int numOfSeniorHost = 0;
+    for (int i = 0; i < numOfCrewMembers; ++i)
+    {
+        CHost* host = dynamic_cast<CHost*>(crewMembers[i]);
+        if(host)
+        {
+            if (host->types[host->getType()] == "Super")
+                numOfSeniorHost++;
+        } else
+            numOfPilots++;
+    }
+    CCargo* cargo = dynamic_cast<CCargo*>(plane);
+    if(cargo)
+    {
+        if (numOfPilots < 1)
+            return false;
+
+        cargo->takeOff(flightInfo->getFlightTime());
+    }
+    else
+    {
+        if(numOfPilots != 1 || numOfSeniorHost > 1)
+            return false;
+    }
+    for (int i = 0; i < numOfCrewMembers; i++)
+    {
+        crewMembers[i]->takeoff(flightInfo->getFlightTime());
+    }
+    return true;
 }

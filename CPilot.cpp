@@ -15,7 +15,10 @@ CPilot::CPilot(string name, bool isCaptain, CAddress* address) : CCrewMember(nam
 
 CPilot::CPilot(CPilot &other) : CCrewMember(other)
 {
-    this->address = new CAddress(*other.address);
+    if (other.address)
+        this->address = new CAddress(*other.address);
+    else
+        this->address = nullptr;
     this->captain = other.captain;
 }
 
@@ -35,11 +38,12 @@ const CPilot &CPilot::operator=(const CPilot &other){
 CPilot::~CPilot()
 {
     delete address;
+    address = nullptr;
 }
 
 void CPilot::changeUniform()
 {
-    cout << name + "  this is the fifth time I get a new uniform – this is a waste of money!" << endl;
+    cout << name + ": this is the fifth time I get a new uniform – this is a waste of money!" << endl;
 }
 
 void CPilot::takeoff(int flightTime) {
@@ -55,7 +59,8 @@ void CPilot::print(ostream &os) const {
     CCrewMember::print(os);
     if(captain)
         os << " a Captain";
-    os << " Home" << *address;
+    if (address)
+        os << " Home" << *address;
     os << endl;
 }
 
@@ -75,7 +80,7 @@ bool CPilot::operator==(const CPilot &other)
 
 void CPilot::comeToSimulator()
 {
-    cout << name +  " got the message will come soon" << endl;
+    cout << "Pilot " + name +  " got the message will come soon" << endl;
 }
 
 

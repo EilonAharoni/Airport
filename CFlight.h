@@ -27,6 +27,8 @@ public:
 	bool operator == (const CFlight& r) const;
 	friend ostream& operator <<(ostream& os, const CFlight& r);
 	int getId() const;
+    const CFlightInfo& GetFlightInfo() const;
+    bool TakeOff() const;
 };
 
 
