@@ -29,7 +29,7 @@ void CCargo::takeOff(int minutes) const
 
 void CCargo::print(ostream& out) const
 {
-	CPlane::print();
-	cout <<"Cargo Weight: " << this->currentCargoWeight << endl << "Cargo Volume: " << this->currentCargoVolume << endl;
+	CPlane::print(out);
+	out <<"Cargo Weight: " << this->currentCargoWeight << endl << "Cargo Volume: " << this->currentCargoVolume << endl;
 }
 

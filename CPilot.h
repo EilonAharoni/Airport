@@ -15,7 +15,7 @@ private:
 public:
     CPilot(string name,bool isCaptain, CAddress* address = nullptr);
     CPilot(CPilot& other);
-    ~CPilot();
+    ~CPilot() override;
     const CPilot& operator=(const CPilot& other);
 
     void comeToSimulator();

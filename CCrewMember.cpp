@@ -65,7 +65,8 @@ const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
 
 ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 {
-    os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: ";// << crewMember.address;
+    crewMember.print(os);
+   // os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: ";// << crewMember.address;
     return os;
 }
 

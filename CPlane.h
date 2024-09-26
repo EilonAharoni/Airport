@@ -32,6 +32,6 @@ public:
     bool operator==(const CPlane& other) const;
 
     bool isEqual(CPlane& other) const;
-    virtual void print() const;
+    virtual void print(ostream& os) const;
 };
 #endif //AIRPORT_CPLANE_H

@@ -21,9 +21,9 @@ public:
 	bool load(float volume, float weight);
 
 	//Called by flight class
-	void takeOff(int minutes) const; 
+	void takeOff(int minutes) const;
 
-	void print(ostream& out) const; 
+	void print(ostream& out) const override;
 
 private:
 	float maxCargoWeight;
