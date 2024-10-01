@@ -29,9 +29,9 @@ bool CPlane::isEqual(CPlane& other) const
     return this->planeId == other.planeId;
 }
 
-void CPlane::print() const
+void CPlane::print(ostream& os) const
 {
-    cout << "Plane Number: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
+    os << "Plane Number: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
 
 }
 
@@ -48,7 +48,8 @@ CPlane CPlane::operator++(int)
 
 ostream &operator<<(ostream &os, const CPlane &plane) 
 {
-    os << "Plane Number: " << plane.planeId <<  " Model: " << plane.planeModel << " seats: " << plane.seats;
+    plane.print(os);
+ //   os << "Plane Number: " << plane.planeId <<  " Model: " << plane.planeModel << " seats: " << plane.seats;
     return os;
 }
 

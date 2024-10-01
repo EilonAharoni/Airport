@@ -29,7 +29,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 
 CFlight::CFlight(const CFlight& other)
 {
-	this->flightInfo =  new CFlightInfo(*other.flightInfo);
+	this->flightInfo = new CFlightInfo(*other.flightInfo);
 	this->plane = other.plane;
 	this->numOfCrewMembers = other.numOfCrewMembers;
 	for(int i = 0; i < other.numOfCrewMembers; i++)

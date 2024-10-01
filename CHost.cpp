@@ -17,7 +17,7 @@ CHost::CHost(CHost &other) : CCrewMember(other), type(other.type)
 
 void CHost::changeUniform()
 {
-    cout << "I think the new uniform is very nice!" << endl;
+    cout << name + ": I think the new uniform is very nice!" << endl;
 }
 
 void CHost::setType(CHost::eType type) {
@@ -31,12 +31,12 @@ CHost::eType CHost::getType() const {
 void CHost::getHolidayGift()
 {
     CCrewMember::getHolidayGift();
-    cout << "I wasn’t expecting it" << endl;
+    cout << "I wasn't expecting it" << endl;
 
 }
 
 void CHost::print(ostream &os) const {
-    cout << "Host " << types[this->type] << " ";
+    cout << "Host " << types[this->type] << endl;
     CCrewMember::print(os);
     cout << endl;
 

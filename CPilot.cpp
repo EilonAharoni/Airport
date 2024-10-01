@@ -29,7 +29,6 @@ const CPilot &CPilot::operator=(const CPilot &other){
         delete address;
         address = new CAddress(*other.address);
         this->captain = other.captain;
-
     }
     return *this;
 }
@@ -43,7 +42,7 @@ CPilot::~CPilot()
 
 void CPilot::changeUniform()
 {
-    cout << name + ": this is the fifth time I get a new uniform – this is a waste of money!" << endl;
+    cout << name + ": this is the fifth time I get a new uniform - this is a waste of money!" << endl;
 }
 
 void CPilot::takeoff(int flightTime) {
@@ -55,12 +54,14 @@ void CPilot::takeoff(int flightTime) {
 }
 
 void CPilot::print(ostream &os) const {
-    os << "Pilot ";
+    os << "Pilot" << endl;
     CCrewMember::print(os);
     if(captain)
-        os << " a Captain";
+        os << ", a Captain";
+    else
+        os << ", Not a Captain";
     if (address)
-        os << " Home" << *address;
+        os << "\nAddress:" << *address;
     os << endl;
 }
 

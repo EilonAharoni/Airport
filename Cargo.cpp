@@ -7,9 +7,9 @@ maxCargoWeight(maxCargoWeight), maxCargoVolume(maxCargoVolume), currentCargoWeig
 {
 }
 
-bool CCargo::load(float volume, float weight)
+bool CCargo::load(float weight, float volume)
 {
-	float currentWeight = this->currentCargoWeight;
+ 	float currentWeight = this->currentCargoWeight;
 	float currentVolume = this->currentCargoVolume;
 	float maxWeight = this->maxCargoWeight;
 	float maxVolume = this->maxCargoVolume;
@@ -29,7 +29,8 @@ void CCargo::takeOff(int minutes) const
 
 void CCargo::print(ostream& out) const
 {
-	CPlane::print();
-	cout <<"Cargo Weight: " << this->currentCargoWeight << endl << "Cargo Volume: " << this->currentCargoVolume << endl;
+	CPlane::print(out);
+	out << "Cargo M_vol: " << this->maxCargoVolume << " M_Kg: " << this->maxCargoWeight;
+	out << " C_vol: " << this->currentCargoVolume << " C_KG: " << this->currentCargoWeight << endl;
 }
 
