@@ -16,7 +16,6 @@ bool CCrewMember::UpdateMinutes(int minutes) {
         return true;
     }
     return false;
-
 }
 
 const int CCrewMember::getAirTime() const {
@@ -32,18 +31,8 @@ const string CCrewMember::getName() const {
     return this->name;
 }
 
-//void CCrewMember::setAddress(CAddress& newAddress) {
-//    this->address.updateAddress(newAddress.getCity(), newAddress.getStreet(), newAddress.getHouseNumber());
-//
-//}
-
-//CAddress CCrewMember::getAddress() const {
-//    return this->address;
-//}
-
 void CCrewMember::print(ostream& os) const {
-    os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;// << " , ";
- //   this->address.Print();
+    os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;
 }
 
 bool CCrewMember::IsEqual(CCrewMember& other) const {
@@ -66,7 +55,6 @@ const CCrewMember &CCrewMember::operator=(const CCrewMember &other) {
 ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 {
     crewMember.print(os);
-   // os << "Name:" << crewMember.name << ", " << "Air Time(Minutes):" << crewMember.airTime << ", Address: ";// << crewMember.address;
     return os;
 }
 

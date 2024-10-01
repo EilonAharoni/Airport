@@ -143,7 +143,8 @@ bool CFlightCompany::AddPlane(CPlane& plane)
     CCargo* cargo = dynamic_cast<CCargo*>(&plane);
     if(cargo)
     {
-        this->planes[numOfPlanes++] = new CCargo(*cargo);
+        this->planes[numOfPlanes] = new CCargo(*cargo);
+		numOfPlanes++;
         return true;
     }
     this->planes[numOfPlanes] = new CPlane(plane);
@@ -222,19 +223,22 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 {
 	out << "Flight company: " << r.company_name << endl;
 	// Print crew members
-	out << "There are " << r.numOfCrewMembers << " crew members" << endl;
+	out << "*******************************************************" << endl;
+	out << "There are " << r.numOfCrewMembers << " crew members:" << endl;
 	for (int i = 0; i < r.numOfCrewMembers; i++)
 	{
 		out << *(r.crewMembers[i]) << endl;
 	}
 	// Print planes
-	out << "There are " << r.numOfPlanes << " planes" << endl;
+	out << "*******************************************************" << endl;
+	out << "There are " << r.numOfPlanes << " planes:" << endl;
 	for (int i = 0; i < r.numOfPlanes; i++)
 	{
 		out << *r.planes[i] << endl;
 	}
 	// Print flights
-	out << "There are " << r.numOfFlights << " flights" << endl;
+	out << "*******************************************************" << endl;
+	out << "There are " << r.numOfFlights << " flights:" << endl;
 	for (int i = 0; i < r.numOfFlights; i++)
 	{
 		out << *r.flights[i] << endl;
