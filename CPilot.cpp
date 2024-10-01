@@ -57,9 +57,7 @@ void CPilot::print(ostream &os) const {
     os << "Pilot" << endl;
     CCrewMember::print(os);
     if(captain)
-        os << ", a Captain";
-    else
-        os << ", Not a Captain";
+        os << " a Captain";
     if (address)
         os << "\nAddress:" << *address;
     os << endl;
