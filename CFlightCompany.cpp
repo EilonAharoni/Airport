@@ -86,12 +86,21 @@ CFlight* CFlightCompany::GetFlightByID(int id) const
 	return nullptr;
 }
 
-CPlane* CFlightCompany::GetPlane(int index) const
+//CPlane* CFlightCompany::GetPlane(int index) const
+//{
+//	if(index < 0 || index >= this->numOfPlanes)
+//		return nullptr;
+//		
+//	return this->planes[index];
+//}
+
+
+CPlane& CFlightCompany::operator[](int index) const
 {
 	if(index < 0 || index >= this->numOfPlanes)
-		return nullptr;
-		
-	return this->planes[index];
+		throw CCompLimitException(index);
+
+	return *this->planes[index];
 }
 
 bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
@@ -245,6 +254,7 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 	}
 	return out;
 }
+
 
 int CFlightCompany::GetCargoCount() const
 {

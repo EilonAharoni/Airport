@@ -6,6 +6,7 @@
 #include "CCrewMember.h"
 #include "CPlane.h"
 #include "CFlight.h"
+#include "CFlightCompException.h"
 
 #define MAX_PLANES 10
 #define MAX_FLIGHTS 10
@@ -24,7 +25,8 @@ public:
 	// Part 2
 	CCrewMember* GetCrewMember(int index) const;
 	CFlight* GetFlightByID(int id) const;
-	CPlane* GetPlane(int index) const;
+	//CPlane* GetPlane(int index) const;
+	CPlane& operator[](int index) const;
     int GetCargoCount() const;
 
 	bool AddCrewMember(CCrewMember& crewMember);
