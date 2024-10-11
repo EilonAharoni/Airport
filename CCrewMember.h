@@ -2,6 +2,7 @@
 #ifndef AIRPORT_CCREWMEMBER_H
 #define AIRPORT_CCREWMEMBER_H
 #include "CAddress.h"
+#include "CFlightCompException.h"
 #include <string>
 
 using namespace std;

@@ -5,8 +5,30 @@
 
 using namespace std;
 int CPlane::SERIAL_ID = START_ID;
-CPlane::CPlane(const int num, string  model) : planeId(SERIAL_ID++), planeModel(std::move(model)), seats(num)
+CPlane::CPlane(const int num, string model) : planeId(SERIAL_ID++)
 {
+    try 
+    {
+		setNumOfSeats(num);
+		setModelName(model);
+	}
+    catch (CCompStringException& e) {
+		e.show();
+	}
+}
+
+void CPlane::setModelName(const string& model)
+{
+    if(model.empty())
+		throw CCompStringException("Model name cannot be empty");
+    this->planeModel = model;
+}
+
+void CPlane::setNumOfSeats(const int num)
+{
+	if(num < 0)
+		throw CCompStringException("Number of seats must be a positive number");
+	this->seats = num;
 }
 
 const int CPlane::getId() const 

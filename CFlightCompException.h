@@ -42,48 +42,6 @@ class CCompFileException : public CFlightCompException
 		}
 };
 
-class CCompFileOpenException : public CFlightCompException
-{
-	std::string fileName;
-	public:
-		CCompFileOpenException(const std::string& fileName) : fileName(fileName) {}
-		void show() const override
-		{
-			std::cout << "File open exception: " << fileName << std::endl;
-		}
-};
-
-class CCompFileReadException : public CFlightCompException
-{
-	std::string fileName;
-	public:
-		CCompFileReadException(const std::string& fileName) : fileName(fileName) {}
-		void show() const override
-		{
-			std::cout << "File read exception: " << fileName << std::endl;
-		}
-};
-
-class CCompFileWriteException : public CFlightCompException
-{
-	std::string fileName;
-	public:
-		CCompFileWriteException(const std::string& fileName) : fileName(fileName) {}
-		void show() const override
-		{
-			std::cout << "File write exception: " << fileName << std::endl;
-		}
-};
-
-class CCompFileCloseException : public CFlightCompException
-{
-	std::string fileName;
-	public:
-		CCompFileCloseException(const std::string& fileName) : fileName(fileName) {}
-		void show() const override
-		{
-			std::cout << "File close exception: " << fileName << std::endl;
-		}
-};
+// TODO: add more file exceptions
 
 #endif 
