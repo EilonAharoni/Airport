@@ -109,8 +109,8 @@ bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
 {
     if(this->numOfCrewMembers >= MAX_CREW_MEMBERS)
     {
-		throw CCompStringException("cant add more crew members");
-		return false;
+        cout << "cant add more crew members" << endl;
+        return false;
     }
 
     for (int i = 0; i < numOfCrewMembers; ++i)
@@ -259,6 +259,7 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 	}
 	return out;
 }
+
 
 int CFlightCompany::GetCargoCount() const
 {
