@@ -6,17 +6,12 @@
 
 CFlightInfo::CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance)
 {
-    try
-	{
+
         setDest(destination);
 		setFlightTime(flight_time);
 		setFlightDistance(flight_distance);
         setFlightNumber(flight_number);
-	}
-	catch (CCompStringException& e)
-    {
-        e.show();
-	}
+
 }
 
 // setters

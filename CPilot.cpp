@@ -3,7 +3,7 @@
 //
 
 #include "CPilot.h"
-#include <iostream>
+#include <fstream>
 CPilot::CPilot(string name, bool isCaptain, CAddress* address) : CCrewMember(name),captain(isCaptain)
 {
     if (address)
@@ -21,7 +21,23 @@ CPilot::CPilot(CPilot &other) : CCrewMember(other)
         this->address = nullptr;
     this->captain = other.captain;
 }
+CPilot::CPilot(ifstream &inFile) : CCrewMember(inFile)
+{
+    int thereAdress;
+    inFile >> thereAdress;
+    if(thereAdress == 1)
+    {
+        int num;
+        string street,city;
+        inFile >> num >> street >> city;
+        address = new CAddress(num,street,city);
+    } else
+        this->address = nullptr;
 
+    int intCaptain;
+    inFile >> intCaptain;
+    captain = intCaptain;
+}
 const CPilot &CPilot::operator=(const CPilot &other){
     if(this != &other)
     {

@@ -15,6 +15,7 @@ private:
 public:
     CPilot(string name,bool isCaptain, CAddress* address = nullptr);
     CPilot(CPilot& other);
+    CPilot(ifstream &inFile);
     ~CPilot() override;
     const CPilot& operator=(const CPilot& other);
 

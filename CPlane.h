@@ -18,6 +18,7 @@ private:
 
 public:
     CPlane(const int num, string model);
+    CPlane(ifstream& inFile);
     CPlane(const CPlane& other) = default; //copy constructor
     virtual ~CPlane() = default;                   //destructor
     CPlane() = delete;

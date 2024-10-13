@@ -17,6 +17,7 @@ protected:
 public:
     CCrewMember(string name, int airTime = 0);
     CCrewMember(CCrewMember& other) = default; // copy constructor
+    CCrewMember(ifstream& inFile);
     CCrewMember() = delete;
     virtual ~CCrewMember() = default;                  // destructor
 

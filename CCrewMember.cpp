@@ -1,19 +1,22 @@
 
-#include <iostream>
+//#include <iostream>
+#include <fstream>
+#include <ostream>
 #include <utility>
 #include "CCrewMember.h"
 //int CCrewMember::START_ID = 1000;
 //int CCrewMember::SERIAL_ID = START_ID;
 CCrewMember::CCrewMember(string name, int airTime)
 {
-    try
-    {
+
         setName(name);
         UpdateMinutes(airTime);
-	}
-    catch (CCompStringException& e) {
-		e.show();
-	}
+
+}
+
+CCrewMember::CCrewMember(ifstream& inFile)
+{
+    inFile >> this->name >> this->airTime;
 }
 
 bool CCrewMember::UpdateMinutes(int minutes) {
@@ -42,7 +45,10 @@ const string CCrewMember::getName() const {
 }
 
 void CCrewMember::print(ostream& os) const {
-    os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;
+    if (typeid(os) == typeid(ofstream))
+        os << this->name << " " << this->airTime;
+    else
+        os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;
 }
 
 bool CCrewMember::IsEqual(CCrewMember& other) const {

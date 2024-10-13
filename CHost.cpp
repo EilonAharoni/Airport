@@ -3,17 +3,23 @@
 //
 
 #include "CHost.h"
-#include <iostream>
+#include <fstream>
 #include <utility>
 
-CHost::CHost(string name, eType type) : CCrewMember(std::move(name)) ,type(type)
+CHost::CHost(string name, eType type) : CCrewMember(std::move(name))
 {
+    setType(type);
 }
 
 CHost::CHost(CHost &other) : CCrewMember(other), type(other.type)
 {
 }
+CHost::CHost(ifstream &inFile) : CCrewMember(inFile){
 
+    int typeInt;
+    inFile >> typeInt;  // Read the integer representing the enum
+    type = static_cast<eType>(typeInt);  // Cast the integer to the enum
+}
 
 void CHost::changeUniform()
 {
@@ -21,6 +27,8 @@ void CHost::changeUniform()
 }
 
 void CHost::setType(CHost::eType type) {
+    if(type  < eRegular || type > eCalcelan + 1 )
+        throw CCompLimitException(type);
     this->type = type;
 }
 
@@ -41,6 +49,8 @@ void CHost::print(ostream &os) const {
     cout << endl;
 
 }
+
+
 
 
 

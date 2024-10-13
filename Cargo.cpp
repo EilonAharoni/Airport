@@ -8,15 +8,12 @@ CCargo::CCargo(
 	const float maxCargoWeight,
 	const float maxCargoVolume) : currentCargoVolume(0), currentCargoWeight(0), CPlane(numOfSeats, std::move(modelName))
 {
-	try
-	{
+
+
 		setMaxCargoWeight(maxCargoWeight);
 		setMaxCargoVolume(maxCargoVolume);
-	}
-	catch (CCompStringException& e)
-	{
-		e.show();
-	}
+
+
 }
 
 

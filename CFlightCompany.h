@@ -16,7 +16,9 @@ class CFlightCompany
 public:
 	CFlightCompany(const string& name);
 	CFlightCompany(const CFlightCompany& other) = delete; // Copy Constructor
-	~CFlightCompany();									  // Destructor
+    CFlightCompany(const string fileName, int i);
+
+    ~CFlightCompany();									  // Destructor
     CFlightCompany() = delete;
 	const string getName() const;
 	void setName(const string& name);
@@ -39,17 +41,17 @@ public:
     void CrewGetUniform() const;
 	int GetCrewCount() const;
 
-	bool operator == (const CFlightCompany& r) const;	
+	bool operator == (const CFlightCompany& r) const;
 	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
 	//** WE dont wanna be able to clone a company **//
 	const CFlightCompany& operator = (const CFlightCompany& r) = delete;
 
 private:
 	string company_name;
-	
+
 	CCrewMember* crewMembers[MAX_CREW_MEMBERS];
 	int numOfCrewMembers;
-	
+
 	CPlane* planes[MAX_PLANES];
 	int numOfPlanes;
 

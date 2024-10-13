@@ -12,6 +12,7 @@ public:
     const string types[3]{"Regular","Super","Calcelan"};
     CHost(string name, eType type);
     CHost(CHost& other);
+    CHost(ifstream &inFile);
 
     void setType(eType type);
     eType getType() const;

@@ -9,13 +9,10 @@
 CFlightCompany::CFlightCompany(const string& company_name)
 	: numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
 {
-	try {
+
 		setName(company_name);
-	}
-	catch (CCompStringException& e)
-	{
-		e.show();
-	}
+
+
 	for (auto& crewMember : this->crewMembers)
 	{
 		crewMember = nullptr;
@@ -28,6 +25,10 @@ CFlightCompany::CFlightCompany(const string& company_name)
 	{
 		flight = nullptr;
 	}
+}
+CFlightCompany::CFlightCompany(const string fileName, int i)
+{
+
 }
 
 CFlightCompany::~CFlightCompany()
@@ -305,6 +306,8 @@ int CFlightCompany::GetCrewCount() const
 {
 	return this->numOfCrewMembers;
 }
+
+
 
 //** WE dont wanna be able to clone a company **//
 // 

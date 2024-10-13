@@ -7,16 +7,16 @@ using namespace std;
 int CPlane::SERIAL_ID = START_ID;
 CPlane::CPlane(const int num, string model) : planeId(SERIAL_ID++)
 {
-    try 
-    {
+
 		setNumOfSeats(num);
 		setModelName(model);
-	}
-    catch (CCompStringException& e) {
-		e.show();
-	}
-}
 
+
+}
+CPlane::CPlane(ifstream& inFile)
+{
+
+}
 void CPlane::setModelName(const string& model)
 {
     if(model.empty())
