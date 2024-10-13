@@ -4,9 +4,16 @@
 #include "CCrewMember.h"
 //int CCrewMember::START_ID = 1000;
 //int CCrewMember::SERIAL_ID = START_ID;
-CCrewMember::CCrewMember(string name, int airTime) :name(std::move(name))
+CCrewMember::CCrewMember(string name, int airTime)
 {
-    UpdateMinutes(airTime);
+    try
+    {
+        setName(name);
+        UpdateMinutes(airTime);
+	}
+    catch (CCompStringException& e) {
+		e.show();
+	}
 }
 
 bool CCrewMember::UpdateMinutes(int minutes) {
@@ -15,16 +22,19 @@ bool CCrewMember::UpdateMinutes(int minutes) {
         this->airTime += minutes;
         return true;
     }
+    throw CCompStringException("Air time must be a positive number");
     return false;
 }
 
-const int CCrewMember::getAirTime() const {
-    return this->airTime;
+const int CCrewMember::getAirTime() const 
+{
+	return this->airTime;
 }
 
 void CCrewMember::setName(const string& newName) {
+    if(newName.empty())
+		throw CCompStringException("Name cannot be empty");
     this->name = newName;
-
 }
 
 const string CCrewMember::getName() const {
@@ -60,17 +70,27 @@ ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 
 bool operator+=(CCrewMember& crewMember, int minutes)
 {
-    if (crewMember.getAirTime() + minutes >= 0)
+    try 
     {
 		crewMember.UpdateMinutes(minutes);
-		return true;
 	}
-    return false;
+    catch (CCompStringException& e) {
+		e.show();
+        return false;
+	}
+	return true;
+
 }
 
 void CCrewMember::takeoff(int flightTime)
 {
-    UpdateMinutes(flightTime);
+    try 
+    {
+		UpdateMinutes(flightTime);
+	}
+    catch (CCompStringException& e) {
+		e.show();
+	}
 }
 
 void CCrewMember::getHolidayGift()

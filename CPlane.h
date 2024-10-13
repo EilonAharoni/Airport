@@ -3,6 +3,7 @@
 #define AIRPORT_CPLANE_H
 
 #include <string>
+#include "CFlightCompException.h"
 constexpr int START_ID = 100;
 using namespace std;
 
@@ -24,6 +25,9 @@ public:
     const int getId() const;
     const string getModel() const;
     const int getNumOfSeats() const;
+
+    void setModelName(const string& model);
+    void setNumOfSeats(const int num);
 
     const CPlane& operator++();
     CPlane operator++(int);

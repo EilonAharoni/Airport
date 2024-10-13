@@ -7,8 +7,15 @@
 #include "Cargo.h"
 //Still get warnings about uninitalized variables
 CFlightCompany::CFlightCompany(const string& company_name)
-	: company_name(company_name), numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
+	: numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
 {
+	try {
+		setName(company_name);
+	}
+	catch (CCompStringException& e)
+	{
+		e.show();
+	}
 	for (auto& crewMember : this->crewMembers)
 	{
 		crewMember = nullptr;
@@ -53,10 +60,8 @@ const string CFlightCompany::getName() const
 void CFlightCompany::setName(const string& new_company_name)
 {
 	if (new_company_name.empty())
-	{
-		cout << "Company name must not be empty" << endl;
-		return;
-	}
+		throw CCompStringException("Company name cannot be empty");
+	
 	this->company_name = new_company_name;
 }
 
@@ -67,10 +72,15 @@ void CFlightCompany::print(ostream& out) const
 
 CCrewMember* CFlightCompany::GetCrewMember (int index) const
 {
-    if(index < 0 || index >= this->numOfCrewMembers)
-        return nullptr;
-
-    return this->crewMembers[index];
+	try 
+	{
+		if (index < 0 || index >= this->numOfCrewMembers)
+			throw CCompLimitException(index);
+	}
+	catch (CCompLimitException& e) {
+		e.show();
+		return nullptr;
+	}
 
 }
 
@@ -86,12 +96,13 @@ CFlight* CFlightCompany::GetFlightByID(int id) const
 	return nullptr;
 }
 
-CPlane* CFlightCompany::GetPlane(int index) const
+// Replaced GetPlane with operator[]
+CPlane& CFlightCompany::operator[](int index) const
 {
-	if(index < 0 || index >= this->numOfPlanes)
-		return nullptr;
-		
-	return this->planes[index];
+	if (index < 0 || index >= this->numOfPlanes)
+		throw CCompLimitException(index);
+
+	return *this->planes[index];
 }
 
 bool CFlightCompany::AddCrewMember(CCrewMember& crewMember)
@@ -128,8 +139,8 @@ bool CFlightCompany::AddPlane(CPlane& plane)
 {
     if(this->numOfPlanes >= MAX_PLANES)
     {
-        cout << "cant add more planes" << endl;
-        return false;
+		throw CCompStringException("cant add more planes");
+		return false;
     }
 
     for (int i = 0; i < numOfPlanes; ++i)
@@ -156,8 +167,8 @@ bool CFlightCompany::AddFlight(CFlight& flight)
 {
     if(this->numOfFlights >= MAX_FLIGHTS)
     {
-        cout << "cant add more flight" << endl;
-        return false;
+		throw CCompStringException("cant add more flights");
+		return false;
     }
 
     for (int i = 0; i < numOfFlights; ++i)
@@ -221,6 +232,9 @@ bool CFlightCompany::operator==(const CFlightCompany& r) const
 
 ostream& operator<<(ostream& out, const CFlightCompany& r)
 {
+	if (r.company_name.empty())
+		throw CCompStringException("Company name cannot be empty");
+	
 	out << "Flight company: " << r.company_name << endl;
 	// Print crew members
 	out << "*******************************************************" << endl;
@@ -245,6 +259,7 @@ ostream& operator<<(ostream& out, const CFlightCompany& r)
 	}
 	return out;
 }
+
 
 int CFlightCompany::GetCargoCount() const
 {
@@ -284,6 +299,11 @@ void CFlightCompany::CrewGetUniform() const
     {
         crewMembers[i]->changeUniform();
     }
+}
+
+int CFlightCompany::GetCrewCount() const
+{
+	return this->numOfCrewMembers;
 }
 
 //** WE dont wanna be able to clone a company **//

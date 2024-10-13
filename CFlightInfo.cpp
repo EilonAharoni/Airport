@@ -5,47 +5,51 @@
 #include "CFlightInfo.h"
 
 CFlightInfo::CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance)
-    : flight_number(flight_number),
-
-    destination(destination)
 {
-    setFlightDistance(flight_distance);
-    setFlightTime(flight_time);// it was also setDistance need to change in Erez code
+    try
+	{
+        setDest(destination);
+		setFlightTime(flight_time);
+		setFlightDistance(flight_distance);
+        setFlightNumber(flight_number);
+	}
+	catch (CCompStringException& e)
+    {
+        e.show();
+	}
 }
 
 // setters
 void CFlightInfo::setFlightNumber(const int flight_number)
 {
+    if (flight_number < 0)
+		throw CCompStringException("Flight number must be a positive number");
     this->flight_number = flight_number;
 }
 
 void CFlightInfo::setDest(const string& new_destination)
 {
     if (new_destination.empty())
-    {
-        cout << "Destination must not be empty" << endl;
-        return;
-    }
+        throw CCompStringException("Destination name cannot be empty");
+    if (new_destination.length() > 30)
+        throw CCompStringException("Destination name is too long (max 30)");
+    
     this->destination = new_destination;
 }
 
 void CFlightInfo::setFlightTime(const int new_flight_time)
 {
     if (new_flight_time < 0)
-    {
-        cout << "Flight time must be a positive number" << endl;
-        return;
-    }
+        throw CCompStringException("Flight time must be a positive number");
+    
     this->flight_duration = new_flight_time;
 }
 
 void CFlightInfo::setFlightDistance(const int new_flight_distance)
 {
     if (new_flight_distance < 0)
-    {
-        cout << "Flight distance must be a positive number" << endl;
-        return;
-    }
+        throw CCompStringException("Flight distance must be a positive number");
+
     this->flight_distance = new_flight_distance;
 }
 // getters

@@ -2,6 +2,7 @@
 #ifndef AIRPORT_CFLIGHTINFO_H
 #define AIRPORT_CFLIGHTINFO_H
 #include <string>
+#include "CFlightCompException.h"
 using namespace std;
 
 class CFlightInfo {

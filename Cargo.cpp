@@ -2,9 +2,36 @@
 
 #include <utility>
 
-CCargo::CCargo(int numOfSeats, string modelName, const float maxCargoWeight, const float maxCargoVolume) : CPlane(numOfSeats, std::move(modelName)),
-maxCargoWeight(maxCargoWeight), maxCargoVolume(maxCargoVolume), currentCargoWeight(0), currentCargoVolume(0)
+CCargo::CCargo(
+	int numOfSeats, 
+	string modelName, 
+	const float maxCargoWeight,
+	const float maxCargoVolume) : currentCargoVolume(0), currentCargoWeight(0), CPlane(numOfSeats, std::move(modelName))
 {
+	try
+	{
+		setMaxCargoWeight(maxCargoWeight);
+		setMaxCargoVolume(maxCargoVolume);
+	}
+	catch (CCompStringException& e)
+	{
+		e.show();
+	}
+}
+
+
+void CCargo::setMaxCargoWeight(float weight)
+{
+	if(weight < 0)
+		throw CCompStringException("Weight cannot be negative");
+	this->maxCargoWeight = weight;
+}
+
+void CCargo::setMaxCargoVolume(float volume)
+{
+	if(volume < 0)
+		throw CCompStringException("Volume cannot be negative");
+	this->maxCargoVolume = volume;
 }
 
 bool CCargo::load(float weight, float volume)
