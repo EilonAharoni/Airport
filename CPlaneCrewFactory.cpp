@@ -27,7 +27,8 @@ CrewType CPlaneCrewFactory::GetCrewType(const CCrewMember *pCrew)
 
 }
 
-void CPlaneCrewFactory::GetCompanyDataFromUser(CFlightCompany &comp) {
+void CPlaneCrewFactory::GetCompanyDataFromUser(CFlightCompany &comp)
+{
 
 }
 

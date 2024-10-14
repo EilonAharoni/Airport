@@ -2,7 +2,7 @@
 #include "Cargo.h"
 #include "CPilot.h"
 #include "CHost.h"
-#include <iostream>
+#include <fstream>
 
 //Ctors
 CFlight::CFlight(const CFlightInfo& flightInfo)
@@ -26,6 +26,8 @@ CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 		this->crewMembers[i] = nullptr;
 	}
 }
+
+
 
 CFlight::CFlight(const CFlight& other)
 {
@@ -103,24 +105,42 @@ if(*this->flightInfo == *r.flightInfo && this->plane == r.plane &&
 
 ostream& operator<<(ostream& os, const CFlight& r)
 {
-    os << *r.flightInfo << endl;
-    if(r.plane)
-	    os << "Plane: " << *r.plane << endl;
-    else
-        os << "There is no plane yet" << endl;
-	if (r.numOfCrewMembers == 0)
-	{
-		os << "There are 0 crew members in the flight" << endl;
-		return os;
-	}
-	else
-	{
-		os << "There are " <<  r.numOfCrewMembers << " crew memebers in flight:" <<endl;
-		for(int i = 0; i < r.numOfCrewMembers; i++)
-		{
-			os << *(r.crewMembers[i]) << endl;
-		}
-	}
+    os << *r.flightInfo;
+    if (typeid(os) != typeid(ofstream))
+    {
+        os << endl;
+        if(r.plane)
+            os << "Plane: " << *r.plane << endl;
+        else
+            os << "There is no plane yet" << endl;
+        if (r.numOfCrewMembers == 0)
+        {
+            os << "There are 0 crew members in the flight" << endl;
+            return os;
+        }
+        else
+        {
+            os << "There are " <<  r.numOfCrewMembers << " crew memebers in flight:" <<endl;
+            for(int i = 0; i < r.numOfCrewMembers; i++)
+            {
+                os << *(r.crewMembers[i]) << endl;
+            }
+        }
+    } else
+    {
+        if(r.plane)
+            os << 1 << " " << r.plane->getId() << endl;
+
+        else
+            os << 0 << endl;
+
+        os << r.numOfCrewMembers << endl;
+        for (int i = 0; i < r.numOfCrewMembers; ++i)
+        {
+            os << r.crewMembers[i] << endl;
+        }
+    }
+
 	return os;
 }
 

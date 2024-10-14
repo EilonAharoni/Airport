@@ -1,6 +1,6 @@
 
 
-#include <iostream>
+#include <fstream>
 
 #include "CFlightInfo.h"
 
@@ -13,7 +13,12 @@ CFlightInfo::CFlightInfo(const string& destination, int flight_number, int fligh
         setFlightNumber(flight_number);
 
 }
+CFlightInfo::CFlightInfo(ifstream& inFile)
+{
 
+    inFile >> this->destination >> this->flight_number >> this->flight_duration >> this->flight_distance;
+
+}
 // setters
 void CFlightInfo::setFlightNumber(const int flight_number)
 {
@@ -103,10 +108,21 @@ CFlightInfo::operator int() const
 
 ostream& operator<<(ostream& out, const CFlightInfo& r)
 {
-    out << "Flight info:" << endl;
-    out << "Flight number: " << r.flight_number  << endl;
-    out << "Destination: " << r.destination  << endl;
-    out << "Flight duration: " << r.flight_duration << " Minutes" <<endl;
-    out << "Flight distance: " << r.flight_distance << " KM";
+    if (typeid(out) != typeid(ofstream))
+    {
+        out << "Flight info:" << endl;
+        out << "Flight number: " << r.flight_number  << endl;
+        out << "Destination: " << r.destination  << endl;
+        out << "Flight duration: " << r.flight_duration << " Minutes" <<endl;
+        out << "Flight distance: " << r.flight_distance << " KM";
+    }
+    else
+    {
+        out << r.destination;
+        out << " " << r.flight_number;
+        out << " " << r.flight_duration;
+        out << " " << r.flight_distance;
+    }
+
     return out; 
 }

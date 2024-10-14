@@ -3,6 +3,7 @@
 //
 
 #include "CHost.h"
+#include "CPlaneCrewFactory.h"
 #include <fstream>
 #include <utility>
 
@@ -44,10 +45,19 @@ void CHost::getHolidayGift()
 }
 
 void CHost::print(ostream &os) const {
-    cout << "Host " << types[this->type] << endl;
-    CCrewMember::print(os);
-    cout << endl;
-
+    ///write to console
+    if (typeid(os) != typeid(ofstream))
+    {
+        cout << "Host " << types[this->type] << endl;
+        CCrewMember::print(os);
+        cout << endl;
+    }///write to file
+    else
+    {
+        os << 0 << " ";
+        CCrewMember::print(os);
+        os << " "  << (int)type;
+    }
 }
 
 

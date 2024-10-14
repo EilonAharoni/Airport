@@ -26,10 +26,11 @@ public:
 
 	// Part 2
 	CCrewMember* GetCrewMember(int index) const;
+    int getCrewMemberIndex(CCrewMember& crew) const;
 	CFlight* GetFlightByID(int id) const;
 	CPlane& operator[](int index) const;
     int GetCargoCount() const;
-
+    CPlane* GetPlaneByID(int id) const;
 	bool AddCrewMember(CCrewMember& crewMember);
 	bool AddPlane(CPlane& plane);
 	bool AddFlight(CFlight& flight);
@@ -40,7 +41,7 @@ public:
     void PilotsToSimulator() const;
     void CrewGetUniform() const;
 	int GetCrewCount() const;
-
+    void SaveToFile(string& fileName) const;
 	bool operator == (const CFlightCompany& r) const;
 	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
 	//** WE dont wanna be able to clone a company **//

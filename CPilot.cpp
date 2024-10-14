@@ -70,13 +70,33 @@ void CPilot::takeoff(int flightTime) {
 }
 
 void CPilot::print(ostream &os) const {
-    os << "Pilot" << endl;
-    CCrewMember::print(os);
-    if(captain)
-        os << " a Captain";
-    if (address)
-        os << "\nAddress:" << *address;
-    os << endl;
+    ///write to console
+    if (typeid(os) != typeid(ofstream))
+    {
+        os << "Pilot" << endl;
+        CCrewMember::print(os);
+        if (captain)
+            os << " a Captain";
+        if (address)
+            os << "\nAddress:" << *address;
+        os << endl;
+    }
+    else ///write to file
+    {
+        os << 1;
+        CCrewMember::print(os);
+        os << " ";
+        if(this->address)
+        {
+            os << 1 << " ";
+            os << address << " ";
+        }
+
+        else
+            os << 0 << " ";
+
+        os << (int)captain;
+    }
 }
 
 bool CPilot::operator==(const CPilot &other)

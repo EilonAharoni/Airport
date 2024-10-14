@@ -3,13 +3,14 @@
 #define AIRPORT_CCARGO_H
 
 
-#include <iostream>
+
 #include "CPlane.h"
 
 class CCargo : public CPlane
 {
 public:
 	CCargo(int numOfSeats, string modelName,const float maxCargoWeight, const float maxCargoVolume);
+    CCargo(ifstream& inFile);
 	bool load(float weight, float volume);
 
 	//Called by flight class

@@ -1,5 +1,5 @@
 
-#include <iostream>
+#include <fstream>
 #include <utility>
 #include "CPlane.h"
 
@@ -15,7 +15,7 @@ CPlane::CPlane(const int num, string model) : planeId(SERIAL_ID++)
 }
 CPlane::CPlane(ifstream& inFile)
 {
-
+    inFile >> this->planeId >> this->planeModel >> this->seats;
 }
 void CPlane::setModelName(const string& model)
 {
@@ -53,8 +53,14 @@ bool CPlane::isEqual(CPlane& other) const
 
 void CPlane::print(ostream& os) const
 {
-    os << "Plane Number: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
-
+    if (typeid(os) != typeid(ofstream))
+    {
+        os << "Plane Number: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
+    }
+    else
+    {
+        os  << this->planeId << " " << this->getModel() << " " << this->seats << endl;
+    }
 }
 
 const CPlane &CPlane::operator++() 

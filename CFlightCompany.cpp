@@ -1,10 +1,11 @@
 
-#include <iostream>
+#include <fstream>
 #include <typeinfo>
 #include "CFlightCompany.h"
 #include "CPilot.h"
 #include "CHost.h"
 #include "Cargo.h"
+#include "CPlaneCrewFactory.h"
 //Still get warnings about uninitalized variables
 CFlightCompany::CFlightCompany(const string& company_name)
 	: numOfCrewMembers(0), numOfPlanes(0), numOfFlights(0)
@@ -26,10 +27,82 @@ CFlightCompany::CFlightCompany(const string& company_name)
 		flight = nullptr;
 	}
 }
-CFlightCompany::CFlightCompany(const string fileName, int i)
+CFlightCompany::CFlightCompany(const string fileName, int dummy)
 {
+    ifstream inFile(fileName, ios::in);
+    if(inFile.fail())
+        throw CCompFileException(fileName);
+//// get company name from file
+    inFile >> this->company_name;
+
+    inFile >> this->numOfCrewMembers;
+//// get crew members
+    for (int i = 0; i < numOfCrewMembers; ++i)
+    {
+        crewMembers[i] = CPlaneCrewFactory::GetCrewMemberFromFile(inFile);
+    }
+
+    inFile >> numOfPlanes;
+
+    for (int i = 0; i < numOfPlanes; ++i)
+    {
+        this->planes[i] = CPlaneCrewFactory::GetPlaneFromFile(inFile);
+    }
+//// get flights from file
+    inFile >> numOfFlights;
+
+    for (int i = 0; i < numOfFlights; ++i)
+    {
+        int planeId;
+        int hasPlane;
+        int crewInFlight;
+
+        CFlightInfo* info = new CFlightInfo(inFile);
+        //// check if there is a plane for this flight
+        inFile >> hasPlane;
+        if(hasPlane){
+            inFile >> planeId;
+            flights[i] = new CFlight(*info,GetPlaneByID(planeId));
+        }
+        else
+        {
+            flights[i] = new CFlight(*info);
+        }
+        //// Add crew members to the current flight
+        inFile >> crewInFlight;
+        for(int j = 0; j < crewInFlight; ++j)
+        {
+           CCrewMember* temp = CPlaneCrewFactory::GetCrewMemberFromFile(inFile);
+           int crewIndex = getCrewMemberIndex(*temp);
+           delete temp;
+           AddCrewToFlight( flights[i]->getId(),crewIndex);
+        }
+
+    }
+    ////close the file
+    inFile.close();
+}
+
+void CFlightCompany::SaveToFile(string& fileName) const
+{
+    ofstream outFile("points.txt", ios::out);
+    if(outFile.fail())
+        throw CCompFileException(fileName);
+
+    outFile << *this;
 
 }
+
+int CFlightCompany::getCrewMemberIndex(CCrewMember& crew) const
+{
+    for (int i =0; i< numOfCrewMembers; i++)
+    {
+        if(crew == *crewMembers[i])
+            return i;
+    }
+    return -1;
+}
+
 
 CFlightCompany::~CFlightCompany()
 {
@@ -73,15 +146,10 @@ void CFlightCompany::print(ostream& out) const
 
 CCrewMember* CFlightCompany::GetCrewMember (int index) const
 {
-	try 
-	{
 		if (index < 0 || index >= this->numOfCrewMembers)
 			throw CCompLimitException(index);
-	}
-	catch (CCompLimitException& e) {
-		e.show();
-		return nullptr;
-	}
+
+        return this->crewMembers[index];
 
 }
 
@@ -231,33 +299,59 @@ bool CFlightCompany::operator==(const CFlightCompany& r) const
 	return true;
 }
 
-ostream& operator<<(ostream& out, const CFlightCompany& r)
-{
-	if (r.company_name.empty())
-		throw CCompStringException("Company name cannot be empty");
-	
-	out << "Flight company: " << r.company_name << endl;
-	// Print crew members
-	out << "*******************************************************" << endl;
-	out << "There are " << r.numOfCrewMembers << " crew members:" << endl;
-	for (int i = 0; i < r.numOfCrewMembers; i++)
-	{
-		out << *(r.crewMembers[i]) << endl;
-	}
-	// Print planes
-	out << "*******************************************************" << endl;
-	out << "There are " << r.numOfPlanes << " planes:" << endl;
-	for (int i = 0; i < r.numOfPlanes; i++)
-	{
-		out << *r.planes[i] << endl;
-	}
-	// Print flights
-	out << "*******************************************************" << endl;
-	out << "There are " << r.numOfFlights << " flights:" << endl;
-	for (int i = 0; i < r.numOfFlights; i++)
-	{
-		out << *r.flights[i] << endl;
-	}
+ostream& operator<<(ostream& out, const CFlightCompany& r) {
+    if (typeid(out) == typeid(ofstream))
+    {
+        out << r.company_name << endl;
+        out << r.numOfCrewMembers << endl;
+        for (int i = 0; i < r.numOfCrewMembers; ++i)
+        {
+            out << *r.crewMembers[i] << endl;
+        }
+
+        out << r.numOfPlanes << endl;
+
+        for (int i = 0; i < r.numOfPlanes; ++i)
+        {
+            if(typeid(r.planes[i]) == typeid(CCargo))
+                out << 1 << " ";
+            else
+                out << 0 << " ";
+            out << *r.planes[i];
+        }
+
+        out << r.numOfFlights << endl;
+        for (int i = 0; i < r.numOfFlights; ++i)
+        {
+            out << r.flights[i];
+        }
+    }
+    else
+    {
+    if (r.company_name.empty())
+        throw CCompStringException("Company name cannot be empty");
+
+    out << "Flight company: " << r.company_name << endl;
+    // Print crew members
+    out << "*******************************************************" << endl;
+    out << "There are " << r.numOfCrewMembers << " crew members:" << endl;
+    for (int i = 0; i < r.numOfCrewMembers; i++) {
+        out << *(r.crewMembers[i]) << endl;
+    }
+    // Print planes
+    out << "*******************************************************" << endl;
+    out << "There are " << r.numOfPlanes << " planes:" << endl;
+    for (int i = 0; i < r.numOfPlanes; i++) {
+        out << *r.planes[i] << endl;
+    }
+    // Print flights
+    out << "*******************************************************" << endl;
+    out << "There are " << r.numOfFlights << " flights:" << endl;
+    for (int i = 0; i < r.numOfFlights; i++)
+    {
+        out << *r.flights[i] << endl;
+    }
+}
 	return out;
 }
 
@@ -307,7 +401,15 @@ int CFlightCompany::GetCrewCount() const
 	return this->numOfCrewMembers;
 }
 
-
+CPlane* CFlightCompany::GetPlaneByID(int id) const
+{
+    for (auto& plane: planes)
+    {
+        if(plane->getId() == id)
+            return plane;
+    }
+    return nullptr;
+}
 
 //** WE dont wanna be able to clone a company **//
 // 

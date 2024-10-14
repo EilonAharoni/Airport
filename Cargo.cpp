@@ -1,7 +1,7 @@
 #include "Cargo.h"
 
 #include <utility>
-
+#include <fstream>
 CCargo::CCargo(
 	int numOfSeats, 
 	string modelName, 
@@ -15,6 +15,11 @@ CCargo::CCargo(
 
 
 }
+CCargo::CCargo(ifstream& inFile) : CPlane(inFile)
+{
+    inFile >> this->maxCargoVolume >> this->currentCargoWeight >> this->maxCargoVolume >> this->currentCargoWeight;
+}
+
 
 
 void CCargo::setMaxCargoWeight(float weight)
@@ -53,8 +58,17 @@ void CCargo::takeOff(int minutes) const
 
 void CCargo::print(ostream& out) const
 {
-	CPlane::print(out);
-	out << "Cargo M_vol: " << this->maxCargoVolume << " M_Kg: " << this->maxCargoWeight;
-	out << " C_vol: " << this->currentCargoVolume << " C_KG: " << this->currentCargoWeight << endl;
+        CPlane::print(out);
+    if (typeid(out) != typeid(ofstream))
+    {
+        out << "Cargo M_vol: " << this->maxCargoVolume << " M_Kg: " << this->maxCargoWeight;
+        out << " C_vol: " << this->currentCargoVolume << " C_KG: " << this->currentCargoWeight << endl;
+    }
+    else
+    {
+        out << " " << this->maxCargoVolume << " " << this->maxCargoWeight;
+        out << " " << this->currentCargoVolume << " " << this->currentCargoWeight << endl;
+    }
+
 }
 

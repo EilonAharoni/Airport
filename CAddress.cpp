@@ -45,7 +45,7 @@ void CAddress::Print() const
 
 ostream &operator<<(ostream &os,const CAddress &address) 
 {
-    os << address.street << ", " << address.houseNumber << ", " << address.city;
+    os << address.street << " " << address.houseNumber << " " << address.city;
     return os;
 }
 istream &operator>>(istream &in,  CAddress &address) 

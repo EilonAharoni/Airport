@@ -9,6 +9,7 @@ class CFlightInfo {
 	friend ostream& operator << (ostream& out, const CFlightInfo& r); 
 public:
 	CFlightInfo() = delete;
+    CFlightInfo(ifstream& inFile);
 	CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance);
 	CFlightInfo(const CFlightInfo& other) = default; // Copy Constructor
 	~CFlightInfo() = default;						 // Destructor

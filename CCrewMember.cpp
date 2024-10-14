@@ -45,9 +45,9 @@ const string CCrewMember::getName() const {
 }
 
 void CCrewMember::print(ostream& os) const {
-    if (typeid(os) == typeid(ofstream))
+    if (typeid(os) == typeid(ofstream))/// to file
         os << this->name << " " << this->airTime;
-    else
+    else /// to console
         os << "Name:" << this->name << ", " << "Air Time(Minutes):" << this->airTime;
 }
 
