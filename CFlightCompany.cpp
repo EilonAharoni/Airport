@@ -91,6 +91,8 @@ void CFlightCompany::SaveToFile(string& fileName) const
 
     outFile << *this;
 
+    outFile.close();
+
 }
 
 int CFlightCompany::getCrewMemberIndex(CCrewMember& crew) const
