@@ -42,6 +42,4 @@ class CCompFileException : public CFlightCompException
 		}
 };
 
-// TODO: add more file exceptions
-
 #endif 

@@ -1,9 +1,5 @@
-
 #ifndef AIRPORT_CCARGO_H
 #define AIRPORT_CCARGO_H
-
-
-
 #include "CPlane.h"
 
 class CCargo : public CPlane

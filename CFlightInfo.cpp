@@ -1,23 +1,16 @@
-
-
 #include <fstream>
-
 #include "CFlightInfo.h"
 
 CFlightInfo::CFlightInfo(const string& destination, int flight_number, int flight_time, int flight_distance)
 {
-
-        setDest(destination);
-		setFlightTime(flight_time);
-		setFlightDistance(flight_distance);
-        setFlightNumber(flight_number);
-
+    setDest(destination);
+	setFlightTime(flight_time);
+	setFlightDistance(flight_distance);
+    setFlightNumber(flight_number);
 }
 CFlightInfo::CFlightInfo(ifstream& inFile)
 {
-
     inFile >> this->destination >> this->flight_number >> this->flight_duration >> this->flight_distance;
-
 }
 // setters
 void CFlightInfo::setFlightNumber(const int flight_number)

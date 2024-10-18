@@ -13,7 +13,7 @@ private:
     CAddress* address;
 
 public:
-    CPilot(string name,bool isCaptain, CAddress* address = nullptr);
+    CPilot(string name, bool isCaptain, CAddress* address = nullptr, int minutes = 0);
     CPilot(CPilot& other);
     CPilot(ifstream &inFile);
     ~CPilot() override;

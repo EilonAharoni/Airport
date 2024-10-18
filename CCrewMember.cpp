@@ -1,17 +1,13 @@
-
-//#include <iostream>
 #include <fstream>
 #include <ostream>
 #include <utility>
 #include "CCrewMember.h"
-//int CCrewMember::START_ID = 1000;
-//int CCrewMember::SERIAL_ID = START_ID;
+
+
 CCrewMember::CCrewMember(string name, int airTime)
 {
-
-        setName(name);
-        UpdateMinutes(airTime);
-
+    setName(name);
+    UpdateMinutes(airTime);
 }
 
 CCrewMember::CCrewMember(ifstream& inFile)
@@ -76,38 +72,19 @@ ostream &operator<<(ostream &os, const CCrewMember &crewMember)
 
 bool operator+=(CCrewMember& crewMember, int minutes)
 {
-    try 
-    {
-		crewMember.UpdateMinutes(minutes);
-	}
-    catch (CCompStringException& e) {
-		e.show();
-        return false;
-	}
-	return true;
-
+    return crewMember.UpdateMinutes(minutes);
 }
 
 void CCrewMember::takeoff(int flightTime)
 {
-    try 
-    {
-		UpdateMinutes(flightTime);
-	}
-    catch (CCompStringException& e) {
-		e.show();
-	}
+	UpdateMinutes(flightTime);
+	cout << name + " is taking off." << endl;
 }
 
 void CCrewMember::getHolidayGift()
 {
     cout << name + " thanking the company for receiving the holiday gift." << endl;
 }
-
-//const int CCrewMember::getId() const
-//{
-//    return id;
-//}
 
 
 

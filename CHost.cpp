@@ -1,13 +1,9 @@
-//
-// Created by אילון אהרוני on 23/09/2024.
-//
-
 #include "CHost.h"
 #include "CPlaneCrewFactory.h"
 #include <fstream>
 #include <utility>
 
-CHost::CHost(string name, eType type) : CCrewMember(std::move(name))
+CHost::CHost(string name, eType type, int minutes) : CCrewMember(std::move(name), minutes)
 {
     setType(type);
 }

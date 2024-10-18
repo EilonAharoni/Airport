@@ -18,7 +18,7 @@ CFlight::CFlight(const CFlightInfo& flightInfo)
 
 CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 {
-	this->plane = plane;
+    setPlane(plane);
 	this->flightInfo = new CFlightInfo(flightInfo);
 	this->numOfCrewMembers = 0;
 	for(int i = 0; i < MAX_CREW_MEMBERS; i++)
@@ -27,6 +27,12 @@ CFlight::CFlight(const CFlightInfo& flightInfo, CPlane* plane)
 	}
 }
 
+CPlane* setPlane(CPlane* plane)
+{
+    if(!plane)
+        throw CCompStringException("Plane not found");
+    return plane;
+}
 
 
 CFlight::CFlight(const CFlight& other)
@@ -120,7 +126,7 @@ ostream& operator<<(ostream& os, const CFlight& r)
         }
         else
         {
-            os << "There are " <<  r.numOfCrewMembers << " crew memebers in flight:" <<endl;
+            os << "There are " <<  r.numOfCrewMembers << " crew members in flight:" <<endl;
             for(int i = 0; i < r.numOfCrewMembers; i++)
             {
                 os << *(r.crewMembers[i]) << endl;
@@ -129,15 +135,15 @@ ostream& operator<<(ostream& os, const CFlight& r)
     } else
     {
         if(r.plane)
-            os << 1 << " " << r.plane->getId() << endl;
+            os << " " << 1 << " " << r.plane->getId() << endl;
 
         else
-            os << 0 << endl;
+            os << " " << 0 << endl;
 
         os << r.numOfCrewMembers << endl;
         for (int i = 0; i < r.numOfCrewMembers; ++i)
         {
-            os << r.crewMembers[i] << endl;
+            os << *(r.crewMembers[i]) << endl;
         }
     }
 
