@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "CAddress.h"
 #include <string>
@@ -10,17 +9,18 @@ CAddress::CAddress(const int houseNum, const string& street, const string& city)
 
 void CAddress::updateAddress(const string& newCity, const string& newStreet, int houseNum) 
 {
+    if (newCity.empty())
+        throw CCompStringException("City name cannot be empty");
+    if (newStreet.empty())
+		throw CCompStringException("Street name cannot be empty");
 
-    if (newStreet.empty() || newCity.empty())
-    {
-        cout << "Must not be empty" << endl;
-        return;
-    }
     this->city = newCity;
     this->street = newStreet;
 
     if (houseNum > 0)
         this->houseNumber = houseNum;
+    else 
+        throw CCompStringException("House number must be a positive number");
 }
 
 const string CAddress::getCity() const 
@@ -38,17 +38,18 @@ const int CAddress::getHouseNumber() const
     return this->houseNumber;
 }
 
-void CAddress::Print() const 
+void CAddress::print() const 
 {
-    cout << this->street << ", " << this->houseNumber << ", " << this->city << endl;
+    cout << this->street << " " << this->houseNumber << ", " << this->city << endl;
 }
 
 ostream &operator<<(ostream &os,const CAddress &address) 
 {
-    os << address.street << " " << address.houseNumber << " " << address.city;
+    os << address.houseNumber << " " << address.street << " " << address.city;
     return os;
 }
-istream &operator>>(istream &in,  CAddress &address) 
+
+istream &operator>>(istream &in, CAddress &address) 
 {
     cout << "Enter street (multiple words allowed): ";
     getline(in,address.street);
@@ -84,7 +85,7 @@ string CAddress::GetCurrentAddress() const
    address += to_string(this->houseNumber);
    address+= ", ";
    address += this->city;
-    return address;
+   return address;
 }
 
 const CAddress &CAddress::operator=(const CAddress &other) 

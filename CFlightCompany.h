@@ -1,4 +1,3 @@
-
 #ifndef AIRPORT_CFLIGHTCOMPANY_H
 #define AIRPORT_CFLIGHTCOMPANY_H
 
@@ -14,38 +13,56 @@
 class CFlightCompany
 {
 public:
+	// ctor's and dtor
 	CFlightCompany(const string& name);
 	CFlightCompany(const CFlightCompany& other) = delete; // Copy Constructor
     CFlightCompany(const string fileName, int i);
-
+	// file ctor helpers
+	void initializeCrewMembersFromFile(ifstream& inFile);
+	void initializePlanesFromFile(ifstream& inFile);
+	void initializeFlightsFromFile(ifstream& inFile);
+	void initializeFlight(ifstream& inFile, int index);
     ~CFlightCompany();									  // Destructor
     CFlightCompany() = delete;
-	const string getName() const;
-	void setName(const string& name);
-	void print(ostream& out) const; // Print function
 
-	// Part 2
+	// Getters
+	const string getName() const;
 	CCrewMember* GetCrewMember(int index) const;
     int getCrewMemberIndex(CCrewMember& crew) const;
 	CFlight* GetFlightByID(int id) const;
-	CPlane& operator[](int index) const;
     int GetCargoCount() const;
     CPlane* GetPlaneByID(int id) const;
+	int GetCrewCount() const;
+
+	// Setters
+	void setName(const string& name);
+
+	// Adders
 	bool AddCrewMember(CCrewMember& crewMember);
 	bool AddPlane(CPlane& plane);
 	bool AddFlight(CFlight& flight);
 	bool AddCrewToFlight(int flightID, int crewMemberIndex) const;
 
-    //part3
+	// Operators overloading
+	CPlane& operator[](int index) const;
+	bool operator == (const CFlightCompany& r) const;
+	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
+	const CFlightCompany& operator = (const CFlightCompany& r) = delete; 	//** WE dont wanna be able to clone a company **//
+
+	// Printers
+	void PrintCrewMembers(ostream& out, const CFlightCompany& r) const;
+	void PrintPlanes(ostream& out, const CFlightCompany& r) const;
+	void PrintFlights(ostream& out, const CFlightCompany& r) const;
+	void print(ostream& out) const; 
+
+	// File handling
+    void SaveToFile(string& fileName) const;
+
     void CrewGetPresent() const;
     void PilotsToSimulator() const;
     void CrewGetUniform() const;
-	int GetCrewCount() const;
-    void SaveToFile(string& fileName) const;
-	bool operator == (const CFlightCompany& r) const;
-	friend ostream& operator << (ostream& out, const CFlightCompany& r); // operator << friend
-	//** WE dont wanna be able to clone a company **//
-	const CFlightCompany& operator = (const CFlightCompany& r) = delete;
+	void clear();
+
 
 private:
 	string company_name;

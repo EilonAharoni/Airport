@@ -15,7 +15,6 @@ private:
     string planeModel;
     int seats;
 
-
 public:
     CPlane(const int num, string model);
     CPlane(ifstream& inFile);
@@ -23,19 +22,22 @@ public:
     virtual ~CPlane() = default;                   //destructor
     CPlane() = delete;
 
+    // getters
     const int getId() const;
     const string getModel() const;
     const int getNumOfSeats() const;
-
+    // setters
     void setModelName(const string& model);
     void setNumOfSeats(const int num);
+    void setPlaneLastId(int id);
 
+    // operators overloading
     const CPlane& operator++();
     CPlane operator++(int);
     friend ostream& operator<<(ostream& os,const CPlane& plane);
     const CPlane& operator=(const CPlane& other);
     bool operator==(const CPlane& other) const;
-
+    
     bool isEqual(CPlane& other) const;
     virtual void print(ostream& os) const;
 };

@@ -1,10 +1,9 @@
-
-
 #ifndef AIRPORT_CFLIGHT_H
 #define AIRPORT_CFLIGHT_H
+
 #include "CFlightInfo.h"
 #include "CPlane.h"
-#include "CCrewMember.h"
+#include "CCrewMember.h" 
 #define MAX_CREW_MEMBERS 10
 
 class CFlight {

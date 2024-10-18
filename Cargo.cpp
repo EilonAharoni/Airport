@@ -1,26 +1,21 @@
 #include "Cargo.h"
-
 #include <utility>
 #include <fstream>
+
 CCargo::CCargo(
 	int numOfSeats, 
 	string modelName, 
 	const float maxCargoWeight,
 	const float maxCargoVolume) : currentCargoVolume(0), currentCargoWeight(0), CPlane(numOfSeats, std::move(modelName))
 {
-
-
-		setMaxCargoWeight(maxCargoWeight);
-		setMaxCargoVolume(maxCargoVolume);
-
-
+	setMaxCargoWeight(maxCargoWeight);
+	setMaxCargoVolume(maxCargoVolume);
 }
+
 CCargo::CCargo(ifstream& inFile) : CPlane(inFile)
 {
-    inFile >> this->maxCargoVolume >> this->currentCargoWeight >> this->maxCargoVolume >> this->currentCargoWeight;
+    inFile >> this->maxCargoVolume >> this->maxCargoWeight >> this->currentCargoVolume >> this->currentCargoWeight;
 }
-
-
 
 void CCargo::setMaxCargoWeight(float weight)
 {
@@ -48,6 +43,7 @@ bool CCargo::load(float weight, float volume)
 		this->currentCargoWeight += weight;
 		return true;
 	}
+	throw CCompStringException("Cargo is too heavy or too big...");
 	return false;
 }
 
@@ -58,7 +54,7 @@ void CCargo::takeOff(int minutes) const
 
 void CCargo::print(ostream& out) const
 {
-        CPlane::print(out);
+    CPlane::print(out);
     if (typeid(out) != typeid(ofstream))
     {
         out << "Cargo M_vol: " << this->maxCargoVolume << " M_Kg: " << this->maxCargoWeight;
@@ -69,6 +65,5 @@ void CCargo::print(ostream& out) const
         out << " " << this->maxCargoVolume << " " << this->maxCargoWeight;
         out << " " << this->currentCargoVolume << " " << this->currentCargoWeight << endl;
     }
-
 }
 

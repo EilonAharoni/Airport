@@ -10,7 +10,7 @@ class CHost :public CCrewMember{
 public:
     enum eType{eRegular,eSuper,eCalcelan};
     const string types[3]{"Regular","Super","Calcelan"};
-    CHost(string name, eType type);
+    CHost(string name, eType type, int minutes);
     CHost(CHost& other);
     CHost(ifstream &inFile);
 

@@ -1,22 +1,28 @@
-
 #include <fstream>
 #include <utility>
 #include "CPlane.h"
 
 using namespace std;
 int CPlane::SERIAL_ID = START_ID;
+
 CPlane::CPlane(const int num, string model) : planeId(SERIAL_ID++)
 {
-
-		setNumOfSeats(num);
-		setModelName(model);
-
-
+	setNumOfSeats(num);
+	setModelName(model);
 }
+
 CPlane::CPlane(ifstream& inFile)
 {
+    static bool isFirstPlane = true;
+    if (isFirstPlane) // Last ID
+    {
+		inFile >> SERIAL_ID;
+        setPlaneLastId(SERIAL_ID);
+		isFirstPlane = false;
+	}
     inFile >> this->planeId >> this->planeModel >> this->seats;
 }
+
 void CPlane::setModelName(const string& model)
 {
     if(model.empty())
@@ -29,6 +35,11 @@ void CPlane::setNumOfSeats(const int num)
 	if(num < 0)
 		throw CCompStringException("Number of seats must be a positive number");
 	this->seats = num;
+}
+
+void CPlane::setPlaneLastId(int id)
+{
+    SERIAL_ID = id;
 }
 
 const int CPlane::getId() const 
@@ -53,13 +64,19 @@ bool CPlane::isEqual(CPlane& other) const
 
 void CPlane::print(ostream& os) const
 {
-    if (typeid(os) != typeid(ofstream))
+    static bool isFirstPlane = true;  // Static to persist between calls
+    if (!dynamic_cast<ofstream*>(&os))  // Check if os is an ofstream
     {
-        os << "Plane Number: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
+        os << "Plane ID: " << this->planeId << " Model: " << this->getModel() << " seats: " << this->seats << endl;
     }
-    else
+    else // write to file
     {
-        os  << this->planeId << " " << this->getModel() << " " << this->seats << endl;
+        if (isFirstPlane)
+        {
+            os << SERIAL_ID << " ";  
+            isFirstPlane = false;  
+        }
+        os << this->planeId << " " << this->getModel() << " " << this->seats << endl;
     }
 }
 
@@ -74,10 +91,9 @@ CPlane CPlane::operator++(int)
     return CPlane(seats++,planeModel);
 }
 
-ostream &operator<<(ostream &os, const CPlane &plane) 
+ostream &operator<<(ostream &os, const CPlane &plane)
 {
     plane.print(os);
- //   os << "Plane Number: " << plane.planeId <<  " Model: " << plane.planeModel << " seats: " << plane.seats;
     return os;
 }
 

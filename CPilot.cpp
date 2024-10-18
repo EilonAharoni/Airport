@@ -1,17 +1,13 @@
-//
-// Created by אילון אהרוני on 23/09/2024.
-//
-
 #include "CPilot.h"
 #include <fstream>
-CPilot::CPilot(string name, bool isCaptain, CAddress* address) : CCrewMember(name),captain(isCaptain)
+
+CPilot::CPilot(string name, bool isCaptain, CAddress* address, int minutes) : CCrewMember(name, minutes),captain(isCaptain)
 {
     if (address)
         this->address = new CAddress(*address);
     else
         this->address = nullptr;
 }
-
 
 CPilot::CPilot(CPilot &other) : CCrewMember(other)
 {
@@ -21,6 +17,7 @@ CPilot::CPilot(CPilot &other) : CCrewMember(other)
         this->address = nullptr;
     this->captain = other.captain;
 }
+
 CPilot::CPilot(ifstream &inFile) : CCrewMember(inFile)
 {
     int thereAdress;
@@ -38,17 +35,17 @@ CPilot::CPilot(ifstream &inFile) : CCrewMember(inFile)
     inFile >> intCaptain;
     captain = intCaptain;
 }
+
 const CPilot &CPilot::operator=(const CPilot &other){
     if(this != &other)
     {
-        CCrewMember:operator=(other);
+        CCrewMember::operator=(other);
         delete address;
         address = new CAddress(*other.address);
         this->captain = other.captain;
     }
     return *this;
 }
-
 
 CPilot::~CPilot()
 {
@@ -78,18 +75,21 @@ void CPilot::print(ostream &os) const {
         if (captain)
             os << " a Captain";
         if (address)
-            os << "\nAddress:" << *address;
+        {
+            os << "\nAddress:";
+            address->print();
+        }
         os << endl;
     }
     else ///write to file
     {
-        os << 1;
+        os << 1 << " ";
         CCrewMember::print(os);
         os << " ";
         if(this->address)
         {
             os << 1 << " ";
-            os << address << " ";
+            os << *address << " ";
         }
 
         else
